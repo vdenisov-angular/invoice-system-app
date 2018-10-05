@@ -6,7 +6,6 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ICustomer } from '../core/models';
 import { BehaviorSubject } from '../../../node_modules/rxjs';
 
-
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
@@ -27,7 +26,6 @@ export class CustomersComponent implements OnInit {
     { prop: 'address' }
   ];
 
-
   constructor(
     private customerService: CustomersService,
     private fb: FormBuilder
@@ -44,7 +42,6 @@ export class CustomersComponent implements OnInit {
       .getAll()
       .subscribe(data => {
         this.customers.next(data);
-
         // this.customers = data;
         // console.log('customers => ', this.customers);
       });
@@ -56,13 +53,11 @@ export class CustomersComponent implements OnInit {
       .create(userInput)
       .subscribe(newCustomer => {
         console.log();
-        const arr = this.customers.getValue();
-        arr.push(newCustomer);
-        console.log('arr => ', arr);
-        this.customers.next(arr);
+        const customers = this.customers.getValue().concat(newCustomer);
+        console.log('customers => ', customers);
+        this.customers.next(customers);
         // this.customers.push(newCustomer);
         // console.log('customers => ', this.customers);
-
       });
     this.addingForm.reset();
     this.closeForm();
