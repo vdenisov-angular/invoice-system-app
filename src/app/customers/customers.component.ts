@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { CustomersService } from '../core/services';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
@@ -13,6 +13,8 @@ import { BehaviorSubject } from '../../../node_modules/rxjs';
 })
 export class CustomersComponent implements OnInit {
 
+  @ViewChild('actionTmpl') actionTmpl: TemplateRef<any>;
+
   public customers = new BehaviorSubject<ICustomer[]>([]);
   public customersSub$ = this.customerService.getAll();
   public addingForm: FormGroup;
@@ -20,11 +22,7 @@ export class CustomersComponent implements OnInit {
   public formIsOpened = false;
   public isEdit = false;
 
-  public tableColumns = [
-    { prop: 'name' },
-    { prop: 'phone' },
-    { prop: 'address' }
-  ];
+  public tableColumns = [];
 
   constructor(
     private customerService: CustomersService,
@@ -45,6 +43,12 @@ export class CustomersComponent implements OnInit {
         // this.customers = data;
         // console.log('customers => ', this.customers);
       });
+    this.tableColumns = [
+      { name: 'Name', prop: 'name' },
+      { name: 'Phone', prop: 'phone' },
+      { name: 'Address', prop: 'address' },
+      { cellTemplate: this.actionTmpl }
+    ];
   }
 
   public onCreate() {
@@ -53,9 +57,9 @@ export class CustomersComponent implements OnInit {
       .create(userInput)
       .subscribe(newCustomer => {
         console.log();
-        const customers = this.customers.getValue().concat(newCustomer);
-        console.log('customers => ', customers);
-        this.customers.next(customers);
+        const arr = this.customers.getValue().concat(newCustomer);
+        console.log('customers => ', arr);
+        this.customers.next(arr);
         // this.customers.push(newCustomer);
         // console.log('customers => ', this.customers);
       });
