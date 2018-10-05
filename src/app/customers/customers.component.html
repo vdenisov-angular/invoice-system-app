@@ -1,0 +1,110 @@
+<h2>Customers list</h2>
+
+<br>
+
+<div>
+  <ngx-datatable
+    [columns]="tableColumns"
+    [rows]="customers | async">
+  </ngx-datatable>
+</div>
+
+
+<!-- <button mat-button class="main-button"
+  *ngIf="!formIsOpened; else blockAddingForm" (click)="openForm()">
+  Add
+</button>
+<ng-templte #blockAddingForm>
+
+</ng-templte> -->
+
+
+
+<form [formGroup]="addingForm" (ngSubmit)="onCreate()">
+  <input type="text" formControlName="name" placeholder="Name"/>
+  <input type="text" formControlName="address" placeholder="Address"/>
+  <input type="text" formControlName="phone" placeholder="Phone"/>
+</form>
+
+<div class="container">
+  <button mat-button class="single-button" type="submit" (click)="onCreate()">
+    Create
+  </button>
+  <button mat-button class="single-button" (click)="closeForm()">
+    Cancel
+  </button>
+</div>
+
+
+<!-- <div class="main-area">
+
+  <button mat-button class="main-button"
+    *ngIf="!formIsOpened" (click)="openForm()">
+    Add
+  </button>
+
+  <mat-card *ngIf="formIsOpened" class="data-input-form">
+
+    <mat-card-content class="adding-form">
+      <form [formGroup]="addingForm" (ngSubmit)="onCreate()">
+
+        <mat-form-field class="input-field">
+          <input matInput type="text" formControlName="name" placeholder="Name"/>
+        </mat-form-field>
+
+        <mat-form-field class="input-field">
+          <input matInput type="text" formControlName="address" placeholder="Address"/>
+        </mat-form-field>
+
+        <mat-form-field class="input-field">
+          <input matInput type="text" formControlName="phone" placeholder="Phone"/>
+        </mat-form-field>
+
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions class="form-actions">
+      <button mat-button class="single-button" type="submit" (click)="onCreate()">
+        Create
+      </button>
+      <button mat-button class="single-button" (click)="closeForm()">
+        Cancel
+      </button>
+    </mat-card-actions>
+
+  </mat-card>
+
+  <div *ngIf="!customers.length" class="no-data">
+    No customers
+  </div>
+
+  <div *ngIf="customers.length" class="data-list">
+
+    <div *ngFor="let customer of customers">
+
+      <mat-card class="item-card">
+
+        <mat-card-title>
+          <a class="item-name" [routerLink]="['/customers', customer.id]">
+            {{ customer.name }}
+          </a>
+        </mat-card-title>
+
+        <mat-card-subtitle>
+          {{ customer.phone }}
+        </mat-card-subtitle>
+
+        <mat-card-content>
+          {{ customer.address }}
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button class="single-button" (click)="onDelete(customer)">Delete</button>
+        </mat-card-actions>
+
+      </mat-card>
+
+    </div>
+  </div>
+
+</div> -->

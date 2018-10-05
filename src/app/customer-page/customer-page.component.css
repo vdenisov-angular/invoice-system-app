@@ -1,0 +1,78 @@
+.return-back {
+  background-color: black;
+  border: 1px solid black;
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.return-back:hover {
+  background-color: white;
+  color: black;
+  letter-spacing: 5px;
+  transition: .5s;
+}
+
+.single-card {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.single-card__content {
+  margin: 0 auto;
+}
+
+.single-card__title {
+  text-align: center;
+}
+
+.data-table {
+  border: none;
+  margin: 0 auto;
+}
+
+.data-table tr {
+  margin: 5px;
+}
+
+.data-table td {
+  padding: 5px 10px;
+}
+
+.table__key {
+  text-transform: uppercase;
+  font-weight: 900;
+}
+
+.table__value {
+  text-decoration: underline;
+  letter-spacing: 2px;
+}
+
+.single-card__buttons {
+  width: 70%;
+  margin: 5px auto 10px !important;
+  display: flex;
+  justify-content: space-around;
+}
+
+.single-button {
+  background-color: white;
+  border: 1px solid black;
+}
+
+.single-button:hover {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  transition: .5s;
+}
+
+.editing-form {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+}

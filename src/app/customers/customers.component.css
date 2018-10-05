@@ -1,0 +1,80 @@
+.main-area {
+  text-align: center;
+  margin: 30px auto;
+  display: flex;
+  align-items: center;
+}
+
+.single-button {
+  background-color: white;
+  border: 1px solid black;
+}
+
+.single-button:hover {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 2px;
+  transition: .5s;
+}
+
+.main-button {
+  background-color: black;
+  border: 1px solid black;
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.main-button:hover {
+  background-color: white;
+  color: black;
+  letter-spacing: 5px;
+  transition: .5s;
+}
+
+/* ########################## */
+
+.data-input-form {
+  width: 350px;
+  text-align: center;
+}
+
+.input-field {
+  width: 80%;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+}
+
+/* ########################## */
+
+.data-list, .no-data {
+  margin: 20px auto;
+}
+
+.data-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 50px;
+}
+
+.item-card {
+  margin: 10px;
+  width: 250px;
+}
+
+.item-name {
+  text-decoration: none;
+  color: black;
+}
+
+.item-name:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
