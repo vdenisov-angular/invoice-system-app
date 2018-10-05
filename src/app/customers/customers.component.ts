@@ -44,7 +44,7 @@ export class CustomersComponent implements OnInit {
         // console.log('customers => ', this.customers);
       });
     this.tableColumns = [
-      { name: 'Name', prop: 'name' },
+      { name: 'Name', prop: 'name',  },
       { name: 'Phone', prop: 'phone' },
       { name: 'Address', prop: 'address' },
       { cellTemplate: this.actionTmpl }
