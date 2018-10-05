@@ -2,33 +2,27 @@
 
 <br>
 
-<ngx-datatable
-  [columns]="tableColumns"
-  [rows]="customers | async"
-  [columnMode]="'force'"
-
-  [rowHeight]="'auto'"
->
+<ngx-datatable [columns]="tableColumns" [rows]="customers | async" [columnMode]="'force'" [rowHeight]="'auto'">
 </ngx-datatable>
 
 <ng-template ngx-datatable-cell-template #actionTmpl let-row="row" let-value="value">
 
-    <button type="button" class="btn btn-yt"><span class="fa fa-youtube pr-1"></span> Youtube</button>
+    <i class="fa fa-pencil-alt" style="margin: 16px"></i>
+    <i class="fa fa-trash-alt"></i>
 
 </ng-template>
 
 <form [formGroup]="addingForm" (ngSubmit)="onCreate()">
   <input type="text" formControlName="name" placeholder="Name" required>
-  <input type="text" formControlName="address" placeholder="Address" required/>
-  <input type="text" formControlName="phone" placeholder="Phone" required/>
+  <input type="text" formControlName="address" placeholder="Address" required />
+  <input type="text" formControlName="phone" placeholder="Phone" required />
 </form>
 
 <div class="container">
-  <button  class="single-button" type="submit" (click)="onCreate()">
+  <button class="single-button" type="submit" (click)="onCreate()">
     Create
   </button>
-  <button  class="single-button" (click)="closeForm()">
+  <button class="single-button" (click)="closeForm()">
     Cancel
   </button>
 </div>
-
