@@ -1,10 +1,14 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { CustomersService } from '../core/services';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BehaviorSubject } from 'rxjs';
+
+import { CustomersService } from '../core/services';
 import { ICustomer } from '../core/models';
-import { BehaviorSubject } from '../../../node_modules/rxjs';
+
+import { ConfirmDeleteComponent } from './../shared/confirm-delete/confirm-delete.component';
+import { EditWindowComponent } from '../shared/edit-window/edit-window.component';
+
 
 @Component({
   selector: 'app-customers',
@@ -26,7 +30,8 @@ export class CustomersComponent implements OnInit {
 
   constructor(
     private customerService: CustomersService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: NgbModal
   ) {
     this.addingForm = this.fb.group({
       'name': ['', Validators.required],
@@ -40,8 +45,6 @@ export class CustomersComponent implements OnInit {
       .getAll()
       .subscribe(data => {
         this.customers.next(data);
-        // this.customers = data;
-        // console.log('customers => ', this.customers);
       });
     this.tableColumns = [
       { name: 'Name', prop: 'name',  },
@@ -56,23 +59,63 @@ export class CustomersComponent implements OnInit {
     this.customerService
       .create(userInput)
       .subscribe(newCustomer => {
-        console.log();
         const arr = this.customers.getValue().concat(newCustomer);
-        console.log('customers => ', arr);
         this.customers.next(arr);
-        // this.customers.push(newCustomer);
-        // console.log('customers => ', this.customers);
       });
     this.addingForm.reset();
     this.closeForm();
   }
 
   public onDelete(obj) {
-    this.customerService
-      .deleteById(obj.id)
-      .subscribe((data) => {
-        // const index = this.customers.indexOf(obj);
-        // this.customers.splice(index, 1);
+    const modalRef = this.modalService
+      .open(ConfirmDeleteComponent, { centered: true });
+
+    modalRef.componentInstance.name = obj.name;
+
+    modalRef.result
+      .then((result) => {
+        // is it necessary to remove ?
+        if (result) {
+          this.customerService
+            .deleteById(obj.id)
+            .subscribe((data) => {
+              const arr = this.customers.getValue().filter(el => el.id !== obj.id);
+              this.customers.next(arr);
+            });
+        }
+      });
+  }
+
+  public onEdit(customer: ICustomer) {
+    const modalRef = this.modalService
+      .open(EditWindowComponent, { centered: true });
+
+    modalRef.componentInstance.customer = customer;
+
+    modalRef.result
+      .then((result) => {
+        // is it necessary to edit ?
+        if (result) {
+          this.customerService
+            .updateById(customer.id, result)
+            .subscribe((newCustomer) => {
+              const arr = this.customers.getValue();
+              let oldCustomer = arr.find(el => el.id === customer.id);
+              oldCustomer = Object.assign({}, oldCustomer, newCustomer);
+              this.customers.next(arr);
+              // console.log('data => ', data);
+              // const arr = this.customers.getValue();
+              // const index = arr.indexOf(obj);
+              // console.log('arr[index] => ', arr[index]);
+              // arr[index] = data;
+              // console.log('arr[index] => ', arr[index]);
+              // console.log('arr => ', arr);
+
+              // console.log('customers BEFORE => ', this.customers.getValue());
+              // // this.customers.next(arr);
+              // console.log('customers AFTER => ', this.customers.getValue());
+            });
+        }
       });
   }
 
