@@ -2,48 +2,6 @@
 
 <br>
 
-<ngx-datatable
-  class="bootstrap"
- 
-  [columns]="tableColumns"
-  [rows]="customers | async"
-  
-  [columnMode]="'force'"
-
-  [headerHeight]="50"
-  [rowHeight]="50"
->
-
-<!-- (activate)="onActivate($event)" -->
-
-<!-- [loadingIndicator]="loadingIndicator"
-[headerHeight]="40"
-[summaryRow]="true"
-[summaryPosition]="'bottom'"
-[footerHeight]="40"
-[limit]="10"
-[reorderable]="reorderable" -->
-
-</ngx-datatable>
-
-<ng-template #actionTmpl let-row="row" let-value="value">
- 
-  <!-- TODO : убрать кнопки, оставить только иконки -->
-
-  <div class="d-flex justify-content-around">
-
-    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onEdit(row)">
-      <i class="fa fa-pencil-alt"></i>
-    </button>
-    
-    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onDelete(row)">
-      <i class="fa fa-trash-alt"></i>
-    </button>
-    
-  </div>
-
-</ng-template>
-
 <form [formGroup]="addingForm" (ngSubmit)="onCreate()">
   <input type="text" formControlName="name" placeholder="Name" required>
   <input type="text" formControlName="address" placeholder="Address" required />
@@ -59,4 +17,24 @@
   </button>
 </div>
 
-<br>
+<ngx-datatable class="bootstrap" [columns]="tableColumns" [rows]="customers | async" [columnMode]="'force'" [headerHeight]="50" [rowHeight]="50">
+
+</ngx-datatable>
+
+<ng-template #actionTmpl let-row="row" let-value="value">
+
+  <!-- TODO : убрать кнопки, оставить только иконки -->
+
+  <div class="d-flex justify-content-around">
+
+    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onEdit(row)">
+      <i class="fa fa-pencil-alt"></i>
+    </button>
+
+    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onDelete(row)">
+      <i class="fa fa-trash-alt"></i>
+    </button>
+
+  </div>
+
+</ng-template>

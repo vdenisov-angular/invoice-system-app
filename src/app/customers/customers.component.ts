@@ -19,8 +19,8 @@ export class CustomersComponent implements OnInit {
 
   @ViewChild('actionTmpl') actionTmpl: TemplateRef<any>;
 
-  public customers = new BehaviorSubject<ICustomer[]>([]);
-  public customersSub$ = this.customerService.getAll();
+  public customers: BehaviorSubject<ICustomer[]>  = new BehaviorSubject<ICustomer[]>([]);
+  public customersSub = this.customers.asObservable();
   public addingForm: FormGroup;
 
   public formIsOpened = false;
@@ -41,6 +41,8 @@ export class CustomersComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.customersSub.subscribe(val => console.log('customers value', val))
+
     this.customerService
       .getAll()
       .subscribe(data => {
@@ -95,25 +97,17 @@ export class CustomersComponent implements OnInit {
     modalRef.result
       .then((result) => {
         // is it necessary to edit ?
+        console.log('res', result)
         if (result) {
           this.customerService
             .updateById(customer.id, result)
-            .subscribe((newCustomer) => {
+            .subscribe((updatedCustomer) => {
               const arr = this.customers.getValue();
-              let oldCustomer = arr.find(el => el.id === customer.id);
-              oldCustomer = Object.assign({}, oldCustomer, newCustomer);
-              this.customers.next(arr);
-              // console.log('data => ', data);
-              // const arr = this.customers.getValue();
-              // const index = arr.indexOf(obj);
-              // console.log('arr[index] => ', arr[index]);
-              // arr[index] = data;
-              // console.log('arr[index] => ', arr[index]);
-              // console.log('arr => ', arr);
+              const index = arr.findIndex(el => el.id === customer.id);
+              console.log('arr => ', arr);
+              arr.splice(index, 1, updatedCustomer);
+              this.customers.next([...arr]);
 
-              // console.log('customers BEFORE => ', this.customers.getValue());
-              // // this.customers.next(arr);
-              // console.log('customers AFTER => ', this.customers.getValue());
             });
         }
       });
