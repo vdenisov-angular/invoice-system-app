@@ -1,8 +1,8 @@
 export interface ICustomer {
-  id: number;
+  id?: number;
   name: string;
-  address: string;
   phone: string;
+  address: string;
 }
 
 export interface IProduct {
@@ -23,4 +23,18 @@ export interface IInvoiceItem {
   invoice_id: number;
   product_id: number;
   quantity: number;
+}
+
+export class Customer implements ICustomer {
+
+  public name = '';
+  public phone = '';
+  public address = '';
+
+  constructor(customerObject: ICustomer) {
+    this.name = customerObject.name;
+    this.phone = customerObject.phone;
+    this.address = customerObject.address;
+  }
+
 }

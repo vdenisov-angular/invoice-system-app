@@ -13,9 +13,11 @@ import { ICustomer } from '../../core/models';
 })
 export class EditWindowComponent implements OnInit {
 
+  @Input() action: string;
   @Input() customer: ICustomer;
 
   public editingForm: FormGroup;
+  public buttonOk: string;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -24,18 +26,43 @@ export class EditWindowComponent implements OnInit {
 
   ngOnInit() {
     this.editingForm = this.fb.group({
-      'name': [this.customer.name, Validators.required],
-      'phone': [this.customer.phone, Validators.required],
-      'address': [this.customer.address, Validators.required],
+
+      name: new FormControl(
+        this.customer.name,
+        [
+          Validators.required,
+          Validators.maxLength(10),
+          Validators.maxLength(30),
+        ]
+      ),
+
+      phone: new FormControl(
+        this.customer.phone,
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(11),
+        ]
+      ),
+
+      address: new FormControl(
+        this.customer.address,
+        [
+          Validators.required,
+          Validators.maxLength(30),
+        ]
+      ),
+
     });
+    this.buttonOk = (this.action === 'edit') ? 'Save' : 'Create';
   }
 
   public onSave() {
     const userInput = this.editingForm.value;
     const updatedInfo = {
-      name: userInput['name'] || this.customer['name'],
-      phone: userInput['phone'] || this.customer['phone'],
-      address: userInput['address'] || this.customer['address'],
+      name: userInput.name || this.customer.name,
+      phone: userInput.phone || this.customer.phone,
+      address: userInput.address || this.customer.address,
     };
     this.activeModal.close(updatedInfo);
     this.editingForm.reset();

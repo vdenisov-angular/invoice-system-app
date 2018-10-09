@@ -1,50 +1,73 @@
 <div class="modal-header">
 
-    <h4 class="modal-title">Editing</h4>
-  
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.close(false)">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  
-  </div>
-  
-  <div class="modal-body">
+  <span class="modal-title">
+    <h4 *ngIf="action === 'create'">Creating...</h4>
+    <h4 *ngIf="action === 'edit'">Editing...</h4>
+  </span>
 
-    <form [formGroup]="editingForm" (ngSubmit)="onSave()">
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
 
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">Email</span>
-        </div>
-        <input type="text" class="form-control" formControlName="name"
-          aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+</div>
+
+<div class="modal-body">
+
+  <form [formGroup]="editingForm" (ngSubmit)="onSave()">
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
       </div>
-  
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">Phone</span>
-        </div>
-        <input type="text" class="form-control" formControlName="phone"
-          aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+      <input mdbInputDirective data-error="wrong text" data-success="right text"
+        type="text" class="form-control" formControlName="name"
+        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="form-control-feedback" *ngIf="name.invalid && (name.dirty || name.touched)">
+      <p *ngIf="name.errors.required">Name is required</p>
+      <p *ngIf="name.errors.minlength">Name must be 10 characters long</p>
+      <p *ngIf="name.errors.maxlength">Name must contain no more than 30 characters</p>
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Phone</span>
       </div>
-  
+      <input type="text" class="form-control" formControlName="phone"
+        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="small-red"
+      *ngIf="editingForm.controls.phone.touched && editingForm.controls.phone.hasError('required')">
+        Phone is required
+    </div>
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
+      </div>
+      <input type="text" class="form-control" formControlName="address"
+        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+    <div class="small-red"
+      *ngIf="editingForm.controls.address.touched && editingForm.controls.address.hasError('required')">
+        Address is required
+    </div>
+
+  </form>
       
-      <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
-        </div>
-        <input type="text" class="form-control" formControlName="address"
-          aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-      </div>
+</div>
 
-    </form>
-        
-  </div>
+<div class="modal-footer">
+
+  <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">
+    Cancel
+  </button>
   
-  <div class="modal-footer">
-  
-    <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">Cancel</button>
-    <button type="button" class="btn btn-outline-dark" (click)="onSave()">Save</button>
-  
-  </div>
-  
+  <button type="submit" class="btn btn-success" [disabled]="editingForm.pristine || editingForm.invalid">
+    {{ buttonOk }}
+  </button>
+
+</div>

@@ -1,0 +1,13 @@
+.has-danger {
+  border: red 2px solid;
+}
+
+.has-success {
+  border: green 2px solid;
+}
+
+.form-control-feedback {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: red;
+}

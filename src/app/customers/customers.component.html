@@ -1,25 +1,22 @@
-<h2>Customers list</h2>
-
-<br>
-
-<form [formGroup]="addingForm" (ngSubmit)="onCreate()">
-  <input type="text" formControlName="name" placeholder="Name" required>
-  <input type="text" formControlName="address" placeholder="Address" required />
-  <input type="text" formControlName="phone" placeholder="Phone" required />
-</form>
-
-<div class="container">
-  <button class="single-button" type="submit" (click)="onCreate()">
-    Create
-  </button>
-  <button class="single-button" (click)="closeForm()">
-    Cancel
+<div class="d-flex flex-row area-header">
+  <h2>Customers list</h2>
+  <button type="button" class="btn btn-primary btn-lg area-button-add" (click)="onCreate()">
+    add new
   </button>
 </div>
 
-<ngx-datatable class="bootstrap" [columns]="tableColumns" [rows]="customers | async" [columnMode]="'force'" [headerHeight]="50" [rowHeight]="50">
+<ngx-datatable
+  class="material"
+ 
+  [columns]="tableColumns"
+  [rows]="customers | async"
+  
+  [columnMode]="'force'"
 
-</ngx-datatable>
+  [headerHeight]="50"
+  [rowHeight]="70"
+  [footerHeight]="50"
+></ngx-datatable>
 
 <ng-template #actionTmpl let-row="row" let-value="value">
 
