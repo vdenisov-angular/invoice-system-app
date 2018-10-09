@@ -31,7 +31,7 @@ export class EditWindowComponent implements OnInit {
         this.customer.name,
         [
           Validators.required,
-          Validators.maxLength(10),
+          Validators.minLength(10),
           Validators.maxLength(30),
         ]
       ),
@@ -58,11 +58,28 @@ export class EditWindowComponent implements OnInit {
     this.buttonOk = (this.action === 'edit') ? 'Save' : 'Create';
   }
 
-  get name() { return this.editingForm.get('name') }
+  //////////////////////////////////////////////////////////////////////////////////////////////
+  // VALIDATION
 
-  get requiredNameError() { return this.name.hasError('required') && this.name.touched }
-  get minlenNameError() { return this.name.hasError('minlength') && this.name.touched }
-  get maxlenNameError() { return this.name.hasError('maxlength') && this.name.touched }
+  get name() { return this.editingForm.get('name') }
+  get nameInvalid() { return  this.name.invalid && ( this.name.dirty ||  this.name.touched) }
+  get errorNameRequired() { return this.name.hasError('required') && this.name.touched }
+  get errorNameMinlen() { return this.name.hasError('minlength') && this.name.touched }
+  get errorNameMaxlen() { return this.name.hasError('maxlength') && this.name.touched }
+
+  get phone() { return this.editingForm.get('phone') }
+  get phoneInvalid() { return  this.phone.invalid && ( this.phone.dirty ||  this.phone.touched) }
+  get errorPhoneRequired() { return this.phone.hasError('required') && this.phone.touched }
+  get errorPhoneMinlen() { return this.phone.hasError('minlength') && this.phone.touched }
+  get errorPhoneMaxlen() { return this.phone.hasError('maxlength') && this.phone.touched }
+
+  get address() { return this.editingForm.get('address') }
+  get addressInvalid() { return  this.address.invalid && ( this.address.dirty ||  this.address.touched) }
+  get errorAddressRequired() { return this.address.hasError('required') && this.address.touched }
+  get errorAddressMinlen() { return this.address.hasError('minlength') && this.address.touched }
+  get errorAddressMaxlen() { return this.address.hasError('maxlength') && this.address.touched }
+
+  //////////////////////////////////////////////////////////////////////////////////////////////
 
   public onSave() {
     const userInput = this.editingForm.value;

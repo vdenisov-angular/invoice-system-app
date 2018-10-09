@@ -1,8 +1,8 @@
 <div class="modal-header">
 
   <span class="modal-title">
-    <h4 *ngIf="action === 'create'">Creating...</h4>
-    <h4 *ngIf="action === 'edit'">Editing...</h4>
+    <h4 *ngIf="action === 'create'">Create form.</h4>
+    <h4 *ngIf="action === 'edit'">Edit form</h4>
   </span>
 
   <button type="button" class="close" aria-label="Close" (click)="activeModal.close(false)">
@@ -15,6 +15,8 @@
 
   <form [formGroup]="editingForm" (ngSubmit)="onSave()">
 
+    <!-- NAME -->
+
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">Name</span>
@@ -24,11 +26,13 @@
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
-    <div class="form-control-feedback" *ngIf="name.invalid && (name.dirty || name.touched)">
-      <p *ngIf="requiredNameError">Name is required</p>
-      <p *ngIf="minlenNameError">Name must be 10 characters long</p>
-      <p *ngIf="maxlenNameError">Name must contain no more than 30 characters</p>
+    <div class="form-control-feedback" *ngIf="nameInvalid">
+      <p *ngIf="errorNameRequired">Name is required</p>
+      <p *ngIf="errorNameMinlen">Name must be 10 characters long</p>
+      <p *ngIf="errorNameMaxlen">Name must contain no more than 30 characters</p>
     </div>
+
+    <!-- PHONE -->
 
     <div class="input-group mb-3">
       <div class="input-group-prepend">
@@ -38,13 +42,14 @@
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
-    <div class="form-control-feedback"
-      *ngIf="editingForm.controls.phone.invalid && (editingForm.controls.phone.dirty || editingForm.controls.phone.touched)">
-      <p *ngIf="editingForm.controls.phone.errors.required">Phone is required</p>
-      <p *ngIf="editingForm.controls.phone.errors.minlength">Phone must be 6 characters long</p>
-      <p *ngIf="editingForm.controls.phone.errors.maxlength">Phone must contain no more than 11 characters</p>
+    <div class="form-control-feedback" *ngIf="phoneInvalid">
+      <p *ngIf="errorPhoneRequired">Phone is required</p>
+      <p *ngIf="errorPhoneMinlen">Phone must be 6 characters long</p>
+      <p *ngIf="errorPhoneMaxlen">Phone must contain no more than 11 characters</p>
     </div>
-
+  
+    <!-- ADDRESS -->
+  
     <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">Address</span>
@@ -53,11 +58,10 @@
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
-    <div class="form-control-feedback"
-      *ngIf="editingForm.controls.address.invalid && (editingForm.controls.address.dirty || editingForm.controls.address.touched)">
-      <p *ngIf="editingForm.controls.address.errors.required">Address is required</p>
-      <p *ngIf="editingForm.controls.address.errors.minlength">Address must be 10 characters long</p>
-      <p *ngIf="editingForm.controls.address.errors.maxlength">Address must contain no more than 30 characters</p>
+    <div class="form-control-feedback" *ngIf="addressInvalid">
+      <p *ngIf="errorAddressRequired">Address is required</p>
+      <p *ngIf="errorAddressMinlen">Address must be 10 characters long</p>
+      <p *ngIf="errorAddressMaxlen">Address must contain no more than 30 characters</p>
     </div>
 
   </form>
@@ -70,7 +74,8 @@
     Cancel
   </button>
   
-  <button type="submit" class="btn btn-success" [disabled]="editingForm.pristine || editingForm.invalid">
+  <button type="button" class="btn btn-success" (click)="onSave()"
+  [disabled]="editingForm.pristine || editingForm.invalid">
     {{ buttonOk }}
   </button>
 
