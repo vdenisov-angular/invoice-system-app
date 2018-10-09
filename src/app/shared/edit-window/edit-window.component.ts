@@ -58,6 +58,12 @@ export class EditWindowComponent implements OnInit {
     this.buttonOk = (this.action === 'edit') ? 'Save' : 'Create';
   }
 
+  get name() { return this.editingForm.get('name') }
+
+  get requiredNameError() { return this.name.hasError('required') && this.name.touched }
+  get minlenNameError() { return this.name.hasError('minlength') && this.name.touched }
+  get maxlenNameError() { return this.name.hasError('maxlength') && this.name.touched }
+
   public onSave() {
     const userInput = this.editingForm.value;
     const updatedInfo = {

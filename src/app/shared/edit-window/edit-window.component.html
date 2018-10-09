@@ -24,11 +24,10 @@
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
-    <div class="form-control-feedback"
-      *ngIf="editingForm.controls.name.invalid && (editingForm.controls.name.dirty || editingForm.controls.name.touched)">
-      <p *ngIf="editingForm.controls.name.errors.required">Name is required</p>
-      <p *ngIf="editingForm.controls.name.errors.minlength">Name must be 10 characters long</p>
-      <p *ngIf="editingForm.controls.name.errors.maxlength">Name must contain no more than 30 characters</p>
+    <div class="form-control-feedback" *ngIf="name.invalid && (name.dirty || name.touched)">
+      <p *ngIf="requiredNameError">Name is required</p>
+      <p *ngIf="minlenNameError">Name must be 10 characters long</p>
+      <p *ngIf="maxlenNameError">Name must contain no more than 30 characters</p>
     </div>
 
     <div class="input-group mb-3">
