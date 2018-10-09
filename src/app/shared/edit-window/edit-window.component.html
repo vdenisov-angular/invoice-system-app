@@ -40,9 +40,9 @@
 
     <div class="form-control-feedback"
       *ngIf="editingForm.controls.phone.invalid && (editingForm.controls.phone.dirty || editingForm.controls.phone.touched)">
-      <p *ngIf="editingForm.controls.phone.errors.required">Name is required</p>
-      <p *ngIf="editingForm.controls.phone.errors.minlength">Name must be 6 characters long</p>
-      <p *ngIf="editingForm.controls.phone.errors.maxlength">Name must contain no more than 11 characters</p>
+      <p *ngIf="editingForm.controls.phone.errors.required">Phone is required</p>
+      <p *ngIf="editingForm.controls.phone.errors.minlength">Phone must be 6 characters long</p>
+      <p *ngIf="editingForm.controls.phone.errors.maxlength">Phone must contain no more than 11 characters</p>
     </div>
 
     <div class="input-group mb-3">
@@ -55,9 +55,9 @@
 
     <div class="form-control-feedback"
       *ngIf="editingForm.controls.address.invalid && (editingForm.controls.address.dirty || editingForm.controls.address.touched)">
-      <p *ngIf="editingForm.controls.address.errors.required">Name is required</p>
-      <p *ngIf="editingForm.controls.address.errors.minlength">Name must be 10 characters long</p>
-      <p *ngIf="editingForm.controls.address.errors.maxlength">Name must contain no more than 30 characters</p>
+      <p *ngIf="editingForm.controls.address.errors.required">Address is required</p>
+      <p *ngIf="editingForm.controls.address.errors.minlength">Address must be 10 characters long</p>
+      <p *ngIf="editingForm.controls.address.errors.maxlength">Address must contain no more than 30 characters</p>
     </div>
 
   </form>
