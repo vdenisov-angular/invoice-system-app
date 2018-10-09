@@ -49,6 +49,7 @@ export class EditWindowComponent implements OnInit {
         this.customer.address,
         [
           Validators.required,
+          Validators.minLength(10),
           Validators.maxLength(30),
         ]
       ),

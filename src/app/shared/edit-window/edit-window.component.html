@@ -24,10 +24,11 @@
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
-    <div class="form-control-feedback" *ngIf="name.invalid && (name.dirty || name.touched)">
-      <p *ngIf="name.errors.required">Name is required</p>
-      <p *ngIf="name.errors.minlength">Name must be 10 characters long</p>
-      <p *ngIf="name.errors.maxlength">Name must contain no more than 30 characters</p>
+    <div class="form-control-feedback"
+      *ngIf="editingForm.controls.name.invalid && (editingForm.controls.name.dirty || editingForm.controls.name.touched)">
+      <p *ngIf="editingForm.controls.name.errors.required">Name is required</p>
+      <p *ngIf="editingForm.controls.name.errors.minlength">Name must be 10 characters long</p>
+      <p *ngIf="editingForm.controls.name.errors.maxlength">Name must contain no more than 30 characters</p>
     </div>
 
     <div class="input-group mb-3">
@@ -38,9 +39,11 @@
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
-    <div class="small-red"
-      *ngIf="editingForm.controls.phone.touched && editingForm.controls.phone.hasError('required')">
-        Phone is required
+    <div class="form-control-feedback"
+      *ngIf="editingForm.controls.phone.invalid && (editingForm.controls.phone.dirty || editingForm.controls.phone.touched)">
+      <p *ngIf="editingForm.controls.phone.errors.required">Name is required</p>
+      <p *ngIf="editingForm.controls.phone.errors.minlength">Name must be 6 characters long</p>
+      <p *ngIf="editingForm.controls.phone.errors.maxlength">Name must contain no more than 11 characters</p>
     </div>
 
     <div class="input-group mb-3">
@@ -51,9 +54,11 @@
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
-    <div class="small-red"
-      *ngIf="editingForm.controls.address.touched && editingForm.controls.address.hasError('required')">
-        Address is required
+    <div class="form-control-feedback"
+      *ngIf="editingForm.controls.address.invalid && (editingForm.controls.address.dirty || editingForm.controls.address.touched)">
+      <p *ngIf="editingForm.controls.address.errors.required">Name is required</p>
+      <p *ngIf="editingForm.controls.address.errors.minlength">Name must be 10 characters long</p>
+      <p *ngIf="editingForm.controls.address.errors.maxlength">Name must contain no more than 30 characters</p>
     </div>
 
   </form>
