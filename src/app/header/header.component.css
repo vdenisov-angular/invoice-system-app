@@ -1,24 +1,4 @@
-.toolbar-area {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 40px;
-  background: #3f51b5;
-}
-
-.project-name {
-  border-radius: 25px;
-  box-shadow: 0 0 10px 5px #fff;
-  background-color: #d6d6d6;
-  padding: 0 10px;
-  color: #3f51b5;
-  font-weight: 900;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.toolbar-buttons a {
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
+.active {
+  color: red;
+  font-weight: bold; 
 }
