@@ -1,3 +1,5 @@
+// INTERFACES
+
 export interface ICustomer {
   id?: number;
   name: string;
@@ -6,7 +8,7 @@ export interface ICustomer {
 }
 
 export interface IProduct {
-  id: number;
+  id?: number;
   name: string;
   price: number;
 }
@@ -25,6 +27,8 @@ export interface IInvoiceItem {
   quantity: number;
 }
 
+// CLASSES
+
 export class Customer implements ICustomer {
 
   public name = '';
@@ -35,6 +39,20 @@ export class Customer implements ICustomer {
     this.name = customerObject.name;
     this.phone = customerObject.phone;
     this.address = customerObject.address;
+  }
+
+}
+
+export class Product implements IProduct {
+
+  public name = '';
+  public price = 0;
+
+  constructor(productObject?: IProduct) {
+    if (productObject) {
+      this.name = productObject.name;
+      this.price = productObject.price;
+    }
   }
 
 }

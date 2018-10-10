@@ -7,6 +7,7 @@ import {
   ConfirmDeleteComponent,
 
   CustomersCreateUpdateComponent,
+  ProductsCreateUpdateComponent,
 } from './modals';
 
 
@@ -15,6 +16,7 @@ import {
     ConfirmDeleteComponent,
 
     CustomersCreateUpdateComponent,
+    ProductsCreateUpdateComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import {
     ConfirmDeleteComponent,
 
     CustomersCreateUpdateComponent,
+    ProductsCreateUpdateComponent,
   ],
   exports: [
     HttpClientModule,

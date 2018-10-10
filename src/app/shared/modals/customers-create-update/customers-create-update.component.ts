@@ -24,6 +24,8 @@ export class CustomersCreateUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.buttonOk = (this.action === 'edit') ? 'Update' : 'Create';
+
     this.editingForm = this.fb.group({
 
       name: new FormControl(
@@ -54,7 +56,6 @@ export class CustomersCreateUpdateComponent implements OnInit {
       ),
 
     });
-    this.buttonOk = (this.action === 'edit') ? 'Save' : 'Create';
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////

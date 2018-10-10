@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 
@@ -20,11 +20,7 @@ export class CustomersComponent implements OnInit {
 
   @ViewChild('actionTmpl') actionTmpl: TemplateRef<any>;
 
-  public customers: BehaviorSubject<ICustomer[]>  = new BehaviorSubject<ICustomer[]>([]);
-
-  public formIsOpened = false;
-  public isEdit = false;
-
+  public customers = new BehaviorSubject<ICustomer[]>([]);
   public tableColumns = [];
 
   constructor(

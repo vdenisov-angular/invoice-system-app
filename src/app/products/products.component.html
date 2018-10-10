@@ -1,3 +1,37 @@
-<p>
-  products works!
-</p>
+<div class="d-flex flex-row area-header">
+  <h2>Products list</h2>
+  <button type="button" class="btn btn-primary btn-lg area-button-add" (click)="onCreate()">
+    add
+  </button>
+</div>
+
+<ngx-datatable
+  class="material"
+ 
+  [columns]="tableColumns"
+  [rows]="products | async"
+  
+  [columnMode]="'force'"
+
+  [headerHeight]="50"
+  [rowHeight]="70"
+  [footerHeight]="50"
+></ngx-datatable>
+
+<ng-template #actionTmpl let-row="row" let-value="value">
+
+  <!-- TODO : убрать кнопки, оставить только иконки -->
+
+  <div class="d-flex justify-content-around">
+
+    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onEdit(row)">
+      <i class="fa fa-pencil-alt"></i>
+    </button>
+
+    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onDelete(row)">
+      <i class="fa fa-trash-alt"></i>
+    </button>
+
+  </div>
+
+</ng-template>
