@@ -13,4 +13,20 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() { }
 
+  public openHome() {
+    this.router.navigateByUrl('/');
+  }
+
+  public openCustomers() {
+    this.router.navigateByUrl('/customers');
+  }
+
+  public openProducts() {
+    this.router.navigateByUrl('/products');
+  }
+
+  public openInvoices() {
+    this.router.navigateByUrl('/invoices');
+  }
+
 }

@@ -4,6 +4,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
+  HeaderComponent,
+  HomeComponent,
+} from './layout';
+
+import {
   ConfirmDeleteComponent,
 
   CustomersCreateUpdateComponent,
@@ -13,6 +18,9 @@ import {
 
 @NgModule({
   declarations: [
+    HeaderComponent,
+    HomeComponent,
+
     ConfirmDeleteComponent,
 
     CustomersCreateUpdateComponent,
@@ -32,6 +40,9 @@ import {
     ProductsCreateUpdateComponent,
   ],
   exports: [
+    HeaderComponent,
+    HomeComponent,
+
     HttpClientModule,
 
     FormsModule,

@@ -10,8 +10,6 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
 import { CustomersComponent } from './customers/customers.component';
 import { CustomerPageComponent } from './customer-page/customer-page.component';
 import { ProductsComponent } from './products/products.component';
@@ -20,8 +18,6 @@ import { ProductsComponent } from './products/products.component';
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    HeaderComponent,
     CustomersComponent,
     CustomerPageComponent,
     ProductsComponent,
