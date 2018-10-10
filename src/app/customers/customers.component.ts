@@ -7,7 +7,7 @@ import { ICustomer, Customer } from '../core/models';
 
 import {
   ConfirmDeleteComponent,
-  EditWindowComponent,
+  CustomersCreateUpdateComponent,
 } from './../shared/modals';
 
 
@@ -48,7 +48,7 @@ export class CustomersComponent implements OnInit {
 
   public onCreate() {
     const modalRef = this.modalService
-      .open(EditWindowComponent, { centered: true });
+      .open(CustomersCreateUpdateComponent, { centered: true });
 
     const inputData = {
       action: 'create',
@@ -75,7 +75,7 @@ export class CustomersComponent implements OnInit {
 
   public onEdit(customer: ICustomer) {
     const modalRef = this.modalService
-      .open(EditWindowComponent, { centered: true });
+      .open(CustomersCreateUpdateComponent, { centered: true });
 
     const inputData = {
       action: 'edit',

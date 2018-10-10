@@ -5,13 +5,12 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { ICustomer } from '../../../core/models';
 
 
-
 @Component({
-  selector: 'app-edit-window',
-  templateUrl: './edit-window.component.html',
-  styleUrls: ['./edit-window.component.css']
+  selector: 'app-customers-create-update',
+  templateUrl: './customers-create-update.component.html',
+  styleUrls: ['./customers-create-update.component.css']
 })
-export class EditWindowComponent implements OnInit {
+export class CustomersCreateUpdateComponent implements OnInit {
 
   @Input() action: string;
   @Input() customer: ICustomer;

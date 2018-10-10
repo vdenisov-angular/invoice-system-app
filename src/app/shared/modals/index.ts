@@ -1,2 +1,3 @@
 export { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
-export { EditWindowComponent } from './edit-window/edit-window.component';
+
+export { CustomersCreateUpdateComponent } from './customers-create-update/customers-create-update.component';

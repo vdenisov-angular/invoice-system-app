@@ -5,14 +5,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
   ConfirmDeleteComponent,
-  EditWindowComponent,
+
+  CustomersCreateUpdateComponent,
 } from './modals';
 
 
 @NgModule({
   declarations: [
     ConfirmDeleteComponent,
-    EditWindowComponent,
+
+    CustomersCreateUpdateComponent,
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import {
   ],
   entryComponents: [
     ConfirmDeleteComponent,
-    EditWindowComponent,
+
+    CustomersCreateUpdateComponent,
   ],
   exports: [
     HttpClientModule,
