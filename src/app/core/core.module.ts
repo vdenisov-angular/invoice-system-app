@@ -2,7 +2,8 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 
 import {
   CustomersService,
-  ProductsService
+  ProductsService,
+  InvoicesService,
 } from './services';
 
 
@@ -14,6 +15,7 @@ export class CoreModule {
       providers: [
         CustomersService,
         ProductsService,
+        InvoicesService,
       ]
     };
   }

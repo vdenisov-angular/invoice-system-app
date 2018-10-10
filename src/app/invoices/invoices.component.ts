@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from '../../../node_modules/rxjs';
+
+import { InvoicesService } from '../core/services';
+import { IInvoice } from '../core/models';
+
 
 @Component({
   selector: 'app-invoices',
@@ -7,9 +12,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InvoicesComponent implements OnInit {
 
-  constructor() { }
+  public invoices = new BehaviorSubject<IInvoice[]>([]);
+  public tableColumns = [];
+
+  constructor(
+    private invoiceService: InvoicesService,
+  ) { }
 
   ngOnInit() {
+    this.invoiceService
+      .getAll()
+      .subscribe(data => {
+        console.log('invoces => ', data);
+      })
   }
 
 }
