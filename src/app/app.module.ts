@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { CustomersComponent } from './customers/customers.component';
 import { CustomerPageComponent } from './customer-page/customer-page.component';
 import { ProductsComponent } from './products/products.component';
+import { InvoicesComponent } from './invoices/invoices.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ProductsComponent } from './products/products.component';
     CustomersComponent,
     CustomerPageComponent,
     ProductsComponent,
+    InvoicesComponent,
   ],
   imports: [
     NgbModule,

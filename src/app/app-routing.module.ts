@@ -6,6 +6,7 @@ import { HomeComponent } from './shared/layout';
 import { CustomersComponent } from './customers/customers.component';
 import { ProductsComponent } from './products/products.component';
 import { CustomerPageComponent } from './customer-page/customer-page.component';
+import { InvoicesComponent } from './invoices/invoices.component';
 
 
 const appRoutes: Routes = [
@@ -13,7 +14,8 @@ const appRoutes: Routes = [
   { path: 'customers', component: CustomersComponent },
   { path: 'customers/:id', component: CustomerPageComponent },
   { path: 'products', component: ProductsComponent },
-  // { path: '**', redirectTo: 'customers' }
+  { path: 'invoices', component: InvoicesComponent },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
