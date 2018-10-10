@@ -5,8 +5,10 @@ import { BehaviorSubject } from 'rxjs';
 import { CustomersService } from '../core/services';
 import { ICustomer, Customer } from '../core/models';
 
-import { ConfirmDeleteComponent } from './../shared/confirm-delete/confirm-delete.component';
-import { EditWindowComponent } from '../shared/edit-window/edit-window.component';
+import {
+  ConfirmDeleteComponent,
+  EditWindowComponent,
+} from './../shared';
 
 
 @Component({
