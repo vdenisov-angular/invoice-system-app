@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   ConfirmDeleteComponent,
   EditWindowComponent,
-} from './';
+} from './modals';
 
 
 @NgModule({

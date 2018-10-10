@@ -8,7 +8,7 @@ import { ICustomer, Customer } from '../core/models';
 import {
   ConfirmDeleteComponent,
   EditWindowComponent,
-} from './../shared';
+} from './../shared/modals';
 
 
 @Component({

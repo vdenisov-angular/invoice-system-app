@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ICustomer } from '../../core/models';
+import { ICustomer } from '../../../core/models';
 
 
 
