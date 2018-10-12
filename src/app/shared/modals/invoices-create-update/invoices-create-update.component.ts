@@ -88,7 +88,6 @@ export class InvoicesCreateUpdateComponent implements OnInit {
   }
 
   formatter = (customer) => {
-    console.log('customer => ', customer)
     return customer.name;
   }
 
