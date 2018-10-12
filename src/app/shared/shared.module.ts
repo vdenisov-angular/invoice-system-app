@@ -13,7 +13,9 @@ import {
 
   CustomersCreateUpdateComponent,
   ProductsCreateUpdateComponent,
+  InvoicesCreateUpdateComponent,
 } from './modals';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -25,6 +27,7 @@ import {
 
     CustomersCreateUpdateComponent,
     ProductsCreateUpdateComponent,
+    InvoicesCreateUpdateComponent,
   ],
   imports: [
     CommonModule,
@@ -32,12 +35,15 @@ import {
 
     FormsModule,
     ReactiveFormsModule,
+
+    NgbModule
   ],
   entryComponents: [
     ConfirmDeleteComponent,
 
     CustomersCreateUpdateComponent,
     ProductsCreateUpdateComponent,
+    InvoicesCreateUpdateComponent,
   ],
   exports: [
     HeaderComponent,
@@ -47,6 +53,8 @@ import {
 
     FormsModule,
     ReactiveFormsModule,
+
+    NgbModule,
   ]
 })
 export class SharedModule { }

@@ -25,7 +25,6 @@ import { InvoicesComponent } from './invoices/invoices.component';
     InvoicesComponent,
   ],
   imports: [
-    NgbModule,
     NgxDatatableModule,
 
     BrowserModule,

@@ -14,14 +14,15 @@ export interface IProduct {
 }
 
 export interface IInvoice {
-  id: number;
+  id?: number;
+  customer_name?: string;
   customer_id: number;
   discount: number;
   total: number;
 }
 
 export interface IInvoiceItem {
-  id: number;
+  id?: number;
   invoice_id: number;
   product_id: number;
   quantity: number;
@@ -52,6 +53,22 @@ export class Product implements IProduct {
     if (productObject) {
       this.name = productObject.name;
       this.price = productObject.price;
+    }
+  }
+
+}
+
+export class Invoice implements IInvoice {
+
+  public customer_id = 0;
+  public discount = 0;
+  public total = 0;
+
+  constructor(invoiceObject?: IInvoice) {
+    if (invoiceObject) {
+      this.customer_id = invoiceObject.customer_id;
+      this.discount = invoiceObject.discount;
+      this.total = invoiceObject.total;
     }
   }
 
