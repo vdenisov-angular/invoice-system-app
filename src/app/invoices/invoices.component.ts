@@ -28,30 +28,31 @@ export class InvoicesComponent implements OnInit {
     private invoiceService: InvoicesService,
     private customerService: CustomersService,
     private modalService: NgbModal
-  ) { }
+  ) {     this.invoiceService
+    .getAll()
+    .subscribe(invoicesList => {
+      invoicesList.forEach(invoice => {
+        invoice.customer_name = 'loading...';
+      });
+
+      this.invoices.next(invoicesList);
+
+      const arr = this.invoices.getValue();
+
+      arr.forEach(invoice => {
+        this.customerService
+          .getById(invoice.customer_id)
+          .subscribe(customer => {
+            invoice.customer_name = customer.name;
+            this.invoices.next([...arr]);
+          });
+      });
+
+      this.loadingIndicator = false;
+    });}
 
   ngOnInit() {
-    this.invoiceService
-      .getAll()
-      .subscribe(invoicesList => {
-        invoicesList.forEach(invoice => {
-          invoice.customer_name = 'loading...';
-        });
 
-        this.invoices.next(invoicesList);
-
-        invoicesList.forEach(invoice => {
-          this.customerService
-            .getById(invoice.customer_id)
-            .subscribe(customer => {
-              invoice.customer_name = customer.name
-            });
-        });
-
-        this.loadingIndicator = false;
-        this.invoices.next(invoicesList);
-
-      });
 
     this.tableColumns = [
       { name: 'Customer', prop: 'customer_name',  },
@@ -75,6 +76,7 @@ export class InvoicesComponent implements OnInit {
     modalRef.result
       .then((data) => {
         if (data) {
+          console.log('data => ', data);
           this.invoiceService
             .create(data)
             .subscribe((createdInvoice) => {

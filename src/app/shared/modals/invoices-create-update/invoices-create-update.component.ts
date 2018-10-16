@@ -1,4 +1,4 @@
-import { ICustomer } from './../../../core/models/index';
+import { ICustomer, Customer } from './../../../core/models/index';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { CustomersService } from './../../../core/services';
 import { IInvoice } from '../../../core/models';
 
-import { Observable, Subject, merge } from 'rxjs';
+import { Observable, Subject, merge, BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, filter } from 'rxjs/operators';
 
 
@@ -33,6 +33,7 @@ export class InvoicesCreateUpdateComponent implements OnInit {
 
   @ViewChild('instance') instance: NgbTypeahead;
 
+  public currentCustomer = new BehaviorSubject<ICustomer>(new Customer());
 
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
@@ -83,7 +84,7 @@ export class InvoicesCreateUpdateComponent implements OnInit {
       .subscribe(customersList => {
         // this.customersNames = customersList.map(customer => customer.name)
         this.customers = customersList;
-        console.log(this.customers);
+        // console.log(this.customers);
       });
   }
 
@@ -112,31 +113,23 @@ export class InvoicesCreateUpdateComponent implements OnInit {
     event.preventDefault();
     console.log('EVENT => ', event);
     this.editingForm.patchValue({customer: event.item.name});
+    this.currentCustomer.next(event.item);
   }
 
 
-/*   public search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged(),
-      map( (term) =>
-        this.customers
-            .filter( (v) => v.name.toLowerCase().indexOf(term.toLowerCase()) > -1)
-            .slice(0, 10)
-      )
-  ) */
-
   public onSave() {
-    console.log('\n\n\n FORM VALUE => ', this.editingForm.value);
+    const selectedCustomer = this.currentCustomer.getValue();
 
-/*     const userInput = this.editingForm.value;
+    const userInput = this.editingForm.value;
     const updatedInfo = {
-      customer_id: userInput.customer_id || this.invoice.customer_id,
+      customer_id: selectedCustomer.id || -1,
       discount: userInput.discount || this.invoice.discount,
       total: userInput.total || this.invoice.total,
     };
+
+    console.log('INFO => ', updatedInfo);
     this.activeModal.close(updatedInfo);
-    this.editingForm.reset(); */
+    this.editingForm.reset();
   }
 
 }
