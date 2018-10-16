@@ -7,6 +7,8 @@
 
 <ngx-datatable
   class="material"
+
+  [loadingIndicator]="loadingIndicator"
  
   [columns]="tableColumns"
   [rows]="customers | async"

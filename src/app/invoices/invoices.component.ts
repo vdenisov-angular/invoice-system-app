@@ -22,6 +22,7 @@ export class InvoicesComponent implements OnInit {
 
   public invoices = new BehaviorSubject<IInvoice[]>([]);
   public tableColumns = [];
+  public loadingIndicator = true;
 
   constructor(
     private invoiceService: InvoicesService,
@@ -47,6 +48,7 @@ export class InvoicesComponent implements OnInit {
             });
         });
 
+        this.loadingIndicator = false;
         this.invoices.next(invoicesList);
 
       });

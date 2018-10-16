@@ -22,6 +22,7 @@ export class CustomersComponent implements OnInit {
 
   public customers = new BehaviorSubject<ICustomer[]>([]);
   public tableColumns = [];
+  public loadingIndicator = true;
 
   constructor(
     private customerService: CustomersService,
@@ -32,6 +33,7 @@ export class CustomersComponent implements OnInit {
     this.customerService
       .getAll()
       .subscribe(data => {
+        this.loadingIndicator = false;
         this.customers.next(data);
       });
     this.tableColumns = [

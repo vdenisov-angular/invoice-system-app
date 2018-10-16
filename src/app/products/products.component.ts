@@ -22,6 +22,7 @@ export class ProductsComponent implements OnInit {
 
   public products = new BehaviorSubject<IProduct[]>([]);
   public tableColumns = [];
+  public loadingIndicator = true;
 
   constructor(
     private productService: ProductsService,
@@ -32,6 +33,7 @@ export class ProductsComponent implements OnInit {
     this.productService
       .getAll()
       .subscribe(data => {
+        this.loadingIndicator = false;
         this.products.next(data);
       });
     this.tableColumns = [
