@@ -42,7 +42,7 @@ export class InvoicesCreateUpdateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.buttonOk = (this.action === 'edit') ? 'Update' : 'Create';
+    this.buttonOk = (this.action === 'edit') ? 'Update' : 'Add';
 
     this.editingForm = this.fb.group({
 
@@ -68,6 +68,9 @@ export class InvoicesCreateUpdateComponent implements OnInit {
       ),
 
     });
+
+    this.editingForm.controls['discount'].disable();
+    this.editingForm.controls['total'].disable();
 
     this.customerService
       .getAll()

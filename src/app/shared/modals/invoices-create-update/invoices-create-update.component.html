@@ -1,7 +1,7 @@
 <div class="modal-header">
 
   <span class="modal-title">
-    <h4 *ngIf="action === 'create'">Create form</h4>
+    <h4 *ngIf="action === 'create'">Addition form</h4>
     <h4 *ngIf="action === 'edit'">Edit form</h4>
   </span>
 
@@ -19,7 +19,7 @@
 
     <div class="input-group mb-3">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroup-sizing-default">Customer</span>
+        <span class="input-group-text" id="inputGroup-sizing-default">Choose customer</span>
       </div>
       <input [ngbTypeahead]="search" #instance="ngbTypeahead"
         (focus)="focus$.next($event.target.value)"
@@ -35,23 +35,23 @@
 
     <!-- DISCOUNT -->
 
-    <div class="input-group mb-3">
+    <!-- <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">Discount %</span>
       </div>
       <input type="text" class="form-control" formControlName="discount"
-        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-    </div>
+        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" [disabled]="false">
+    </div> -->
 
     <!-- TOTAL -->
 
-    <div class="input-group mb-3">
+    <!-- <div class="input-group mb-3">
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">Total $</span>
       </div>
       <input type="text" class="form-control" formControlName="total"
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-    </div>
+    </div> -->
 
   </form>
     
