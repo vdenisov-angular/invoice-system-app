@@ -16,6 +16,7 @@ export class CustomersCreateUpdateComponent implements OnInit {
   @Input() customer: ICustomer;
 
   public editingForm: FormGroup;
+  public modalTitle: string;
   public buttonOk: string;
 
   constructor(
@@ -24,7 +25,13 @@ export class CustomersCreateUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.buttonOk = (this.action === 'edit') ? 'Update' : 'Create';
+    if (this.action === 'edit') {
+      this.modalTitle = 'Edit this customer';
+      this.buttonOk = 'Update';
+    } else {
+      this.modalTitle = 'Create new customer';
+      this.buttonOk = 'Create';
+    }
 
     this.editingForm = this.fb.group({
 

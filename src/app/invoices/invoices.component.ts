@@ -8,6 +8,7 @@ import { IInvoice, Invoice } from '../core/models';
 import {
   ConfirmDeleteComponent,
   InvoicesCreateUpdateComponent,
+  SelectInvoiceItemsComponent,
 } from '../shared/modals';
 
 
@@ -86,7 +87,11 @@ export class InvoicesComponent implements OnInit {
             });
         }
       });
+  }
 
+  public onChange(invoice: IInvoice) {
+    const modalRef = this.modalService
+      .open(SelectInvoiceItemsComponent, { centered: true });
   }
 
   public onDelete(invoice: IInvoice) {

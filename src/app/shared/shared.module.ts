@@ -18,6 +18,7 @@ import {
   DialogCreateUpdateComponent,
 } from './modals';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SelectInvoiceItemsComponent } from './modals/select-invoice-items/select-invoice-items.component';
 
 
 @NgModule({
@@ -32,6 +33,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     InvoicesCreateUpdateComponent,
 
     DialogCreateUpdateComponent,
+
+    SelectInvoiceItemsComponent,
   ],
   imports: [
     CommonModule,
@@ -49,7 +52,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ProductsCreateUpdateComponent,
     InvoicesCreateUpdateComponent,
 
-    DialogCreateUpdateComponent
+    DialogCreateUpdateComponent,
+
+    SelectInvoiceItemsComponent,
   ],
   exports: [
     HeaderComponent,

@@ -1,0 +1,47 @@
+<div class="modal-header">
+
+  <span class="modal-title">
+    <h4>Addition items for invoice</h4>
+  </span>
+
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+</div>
+
+<div class="modal-body">
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <input type="checkbox" aria-label="Checkbox for following text input">
+        Iphone
+      </div>
+    </div>
+    <input type="text" class="form-control" aria-label="Text input with checkbox">
+  </div>
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <input type="checkbox" aria-label="Checkbox for following text input">
+        Lenovo
+      </div>
+    </div>
+    <input type="text" class="form-control" aria-label="Text input with checkbox">
+  </div>
+    
+</div>
+
+<div class="modal-footer">
+
+  <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">
+    Cancel
+  </button>
+  
+  <button type="button" class="btn btn-success" (click)="onSave()">
+    Save
+  </button>
+
+</div>

@@ -48,17 +48,22 @@ export class CustomersComponent implements OnInit {
 
   public onCreate() {
 
-    // const modalRef = this.modalService
-    //   .open(CustomersCreateUpdateComponent, { centered: true });
-
     const modalRef = this.modalService
-      .open(DialogCreateUpdateComponent, { centered: true });
+      .open(CustomersCreateUpdateComponent, { centered: true });
 
     const inputData = {
-      type: 'ICustomer',
       action: 'create',
-      itemData: new Customer()
+      customer: new Customer()
     };
+
+    // const modalRef = this.modalService
+    //   .open(DialogCreateUpdateComponent, { centered: true });
+
+    // const inputData = {
+    //   type: 'ICustomer',
+    //   action: 'create',
+    //   itemData: new Customer()
+    // };
 
     Object.assign(modalRef.componentInstance, inputData);
 
@@ -80,17 +85,22 @@ export class CustomersComponent implements OnInit {
 
   public onEdit(customer: ICustomer) {
 
-    // const modalRef = this.modalService
-    //   .open(CustomersCreateUpdateComponent, { centered: true });
-
     const modalRef = this.modalService
-      .open(DialogCreateUpdateComponent, { centered: true });
+      .open(CustomersCreateUpdateComponent, { centered: true });
 
     const inputData = {
-      type: 'ICustomer',
       action: 'edit',
-      itemData: customer
+      customer: customer
     };
+
+    // const modalRef = this.modalService
+    //   .open(DialogCreateUpdateComponent, { centered: true });
+
+    // const inputData = {
+    //   type: 'ICustomer',
+    //   action: 'edit',
+    //   itemData: customer
+    // };
 
     Object.assign(modalRef.componentInstance, inputData);
 

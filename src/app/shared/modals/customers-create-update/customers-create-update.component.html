@@ -1,8 +1,7 @@
 <div class="modal-header">
 
   <span class="modal-title">
-    <h4 *ngIf="action === 'create'">Create form</h4>
-    <h4 *ngIf="action === 'edit'">Edit form</h4>
+    <h4>{{ modalTitle }}</h4>
   </span>
 
   <button type="button" class="close" aria-label="Close" (click)="activeModal.close(false)">
