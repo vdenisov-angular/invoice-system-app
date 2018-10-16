@@ -36,10 +36,12 @@ export class Customer implements ICustomer {
   public phone = '';
   public address = '';
 
-  constructor(customerObject: ICustomer) {
-    this.name = customerObject.name;
-    this.phone = customerObject.phone;
-    this.address = customerObject.address;
+  constructor(customerObject?: ICustomer) {
+    if (customerObject) {
+      this.name = customerObject.name;
+      this.phone = customerObject.phone;
+      this.address = customerObject.address;
+    }
   }
 
 }

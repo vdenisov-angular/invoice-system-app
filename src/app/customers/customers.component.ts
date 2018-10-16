@@ -8,6 +8,8 @@ import { ICustomer, Customer } from '../core/models';
 import {
   ConfirmDeleteComponent,
   CustomersCreateUpdateComponent,
+
+  DialogCreateUpdateComponent
 } from './../shared/modals';
 
 
@@ -45,12 +47,17 @@ export class CustomersComponent implements OnInit {
   }
 
   public onCreate() {
+
+    // const modalRef = this.modalService
+    //   .open(CustomersCreateUpdateComponent, { centered: true });
+
     const modalRef = this.modalService
-      .open(CustomersCreateUpdateComponent, { centered: true });
+      .open(DialogCreateUpdateComponent, { centered: true });
 
     const inputData = {
+      type: 'ICustomer',
       action: 'create',
-      customer: new Customer({name: '', phone: '', address: ''}),
+      itemData: new Customer()
     };
 
     Object.assign(modalRef.componentInstance, inputData);
@@ -72,12 +79,17 @@ export class CustomersComponent implements OnInit {
   }
 
   public onEdit(customer: ICustomer) {
+
+    // const modalRef = this.modalService
+    //   .open(CustomersCreateUpdateComponent, { centered: true });
+
     const modalRef = this.modalService
-      .open(CustomersCreateUpdateComponent, { centered: true });
+      .open(DialogCreateUpdateComponent, { centered: true });
 
     const inputData = {
+      type: 'ICustomer',
       action: 'edit',
-      customer: customer
+      itemData: customer
     };
 
     Object.assign(modalRef.componentInstance, inputData);
@@ -85,6 +97,7 @@ export class CustomersComponent implements OnInit {
     modalRef.result
       .then((data) => {
         if (data) {
+          console.log('data => ', data);
           this.customerService
             .updateById(customer.id, data)
             .subscribe((updatedCustomer) => {

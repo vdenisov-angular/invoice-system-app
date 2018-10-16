@@ -14,6 +14,8 @@ import {
   CustomersCreateUpdateComponent,
   ProductsCreateUpdateComponent,
   InvoicesCreateUpdateComponent,
+
+  DialogCreateUpdateComponent,
 } from './modals';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -28,6 +30,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CustomersCreateUpdateComponent,
     ProductsCreateUpdateComponent,
     InvoicesCreateUpdateComponent,
+
+    DialogCreateUpdateComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +48,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CustomersCreateUpdateComponent,
     ProductsCreateUpdateComponent,
     InvoicesCreateUpdateComponent,
+
+    DialogCreateUpdateComponent
   ],
   exports: [
     HeaderComponent,

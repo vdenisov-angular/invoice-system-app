@@ -83,6 +83,7 @@ export class CustomersCreateUpdateComponent implements OnInit {
 
   public onSave() {
     const userInput = this.editingForm.value;
+    console.log(userInput)
     const updatedInfo = {
       name: userInput.name || this.customer.name,
       phone: userInput.phone || this.customer.phone,
