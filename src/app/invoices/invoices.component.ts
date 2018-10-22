@@ -46,21 +46,21 @@ export class InvoicesComponent implements OnInit {
 
         const arr = this.invoices.getValue();
 
-        // arr.forEach(invoice => {
-        //   this.customerService
-        //     .getById(invoice.customer_id)
-        //     .subscribe(customer => {
-        //       invoice.customer_name = customer.name;
-        //       this.invoices.next([...arr]);
-        //     });
-        // });
+        arr.forEach(invoice => {
+          this.customerService
+            .getById(invoice.customer_id)
+            .subscribe(customer => {
+              invoice.customer_name = customer.name;
+              this.invoices.next([...arr]);
+            });
+        });
 
         this.loadingIndicator = false;
       });
 
     this.tableColumns = [
-      { name: 'Customer', prop: 'customer_id', cellTemplate: this.nameTmpl, },
-      // { name: 'Customer', prop: 'customer_name', },
+      // { name: 'Customer', prop: 'customer_id' },
+      { name: 'Customer', prop: 'customer_name', },
       { name: 'Discount %', prop: 'discount' },
       { name: 'Total $', prop: 'total' },
       { cellTemplate: this.actionTmpl }
@@ -86,8 +86,12 @@ export class InvoicesComponent implements OnInit {
             .create(data)
             .subscribe((createdInvoice) => {
               const arr = this.invoices.getValue();
+
+              createdInvoice.customer_name = data.customer_name;
+
               arr.push(createdInvoice);
-              this.invoices.next([...arr])
+              this.invoices.next([...arr]);
+              console.log(this.invoices.getValue());
             });
         }
       });
