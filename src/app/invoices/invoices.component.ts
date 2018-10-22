@@ -38,9 +38,9 @@ export class InvoicesComponent implements OnInit {
     this.invoiceService
       .getAll()
       .subscribe(invoicesList => {
-        invoicesList.forEach(invoice => {
+/*         invoicesList.forEach(invoice => {
           invoice.customer_name = 'loading...';
-        });
+        }); */
 
         this.invoices.next(invoicesList);
 
@@ -50,8 +50,8 @@ export class InvoicesComponent implements OnInit {
       });
 
     this.tableColumns = [
-      { name: 'Customer', prop: 'customer_id', cellTemplate: this.nameTmpl, },
-      // { name: 'Customer', prop: 'customer_name', },
+      // { name: 'Customer', prop: 'customer_id' },
+      { name: 'Customer', prop: 'customer_id', cellTemplate: this.nameTmpl },
       { name: 'Discount %', prop: 'discount' },
       { name: 'Total $', prop: 'total' },
       { cellTemplate: this.actionTmpl }
@@ -77,8 +77,12 @@ export class InvoicesComponent implements OnInit {
             .create(data)
             .subscribe((createdInvoice) => {
               const arr = this.invoices.getValue();
+
+              createdInvoice.customer_name = data.customer_name;
+
               arr.push(createdInvoice);
-              this.invoices.next([...arr])
+              this.invoices.next([...arr]);
+              console.log(this.invoices.getValue());
             });
         }
       });

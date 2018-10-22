@@ -116,6 +116,7 @@ export class InvoicesCreateUpdateComponent implements OnInit {
     const userInput = this.editingForm.value;
     const updatedInfo = {
       customer_id: selectedCustomer.id || -1,
+      customer_name: selectedCustomer.name,
       discount: userInput.discount || this.invoice.discount,
       total: userInput.total || this.invoice.total,
     };
