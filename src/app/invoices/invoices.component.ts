@@ -38,19 +38,12 @@ export class InvoicesComponent implements OnInit {
     this.invoiceService
       .getAll()
       .subscribe(invoicesList => {
-/*         invoicesList.forEach(invoice => {
-          invoice.customer_name = 'loading...';
-        }); */
-
         this.invoices.next(invoicesList);
-
         const arr = this.invoices.getValue();
-
         this.loadingIndicator = false;
       });
 
     this.tableColumns = [
-      // { name: 'Customer', prop: 'customer_id' },
       { name: 'Customer', prop: 'customer_id', cellTemplate: this.nameTmpl },
       { name: 'Discount %', prop: 'discount' },
       { name: 'Total $', prop: 'total' },
@@ -97,7 +90,9 @@ export class InvoicesComponent implements OnInit {
     const modalRef = this.modalService
       .open(ConfirmDeleteComponent, { centered: true });
 
-    modalRef.componentInstance.name = invoice.customer_name;
+    // TODO: где взять имя пользователя ?
+    // modalRef.componentInstance.name = invoice.customer_name;
+    modalRef.componentInstance.name = 'this invoice';
 
     modalRef.result
       .then((confirmation) => {
@@ -111,22 +106,5 @@ export class InvoicesComponent implements OnInit {
         }
       });
   }
-
-  public getNameById(customerId) {
-
-    console.log(customerId)
-
-    this.buf.push(customerId);
-
-    console.log('total => ', this.buf.length);
-
-    // this.customerService
-    //   .getById(customerId)
-    //   .subscribe(user => {
-    //     return user.name
-    //   })
-
-  }
-
 
 }

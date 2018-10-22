@@ -8,8 +8,7 @@ export class CustomerNamePipe implements PipeTransform {
 
   constructor(
     private customerService: CustomersService,
-  ) {
-  }
+  ) { }
 
   transform(value: any, args?: any): any {
     return this.customerService.getById(value)
