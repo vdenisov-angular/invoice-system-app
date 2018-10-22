@@ -15,6 +15,7 @@ import { CustomerPageComponent } from './customer-page/customer-page.component';
 import { ProductsComponent } from './products/products.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { CustomerNamePipe } from './invoices/customer-name.pipe';
+import { InvoiceItemsComponent } from './invoice-items/invoice-items.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { CustomerNamePipe } from './invoices/customer-name.pipe';
     ProductsComponent,
     InvoicesComponent,
     CustomerNamePipe,
+    InvoiceItemsComponent,
   ],
   imports: [
     NgxDatatableModule,
