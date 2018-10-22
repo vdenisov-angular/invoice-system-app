@@ -14,6 +14,8 @@ import { IInvoice } from '../../../core/models';
 })
 export class SelectInvoiceItemsComponent implements OnInit {
 
+  public itemsForm: FormGroup;
+
   constructor(
     public activeModal: NgbActiveModal,
     private customerService: CustomersService,
@@ -21,7 +23,25 @@ export class SelectInvoiceItemsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('modal window');
+    this.itemsForm = this.fb.group({
+
+      name: new FormControl(
+        '',
+        [
+          Validators.required,
+        ]
+      ),
+
+    });
+  }
+
+  public addItem() {
+    this.itemsForm.addControl('i', new FormControl());
+    console.log(this.itemsForm.controls);
+  }
+
+  public onSave() {
+    console.log('save');
   }
 
 }

@@ -12,25 +12,33 @@
 
 <div class="modal-body">
 
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <div class="input-group-text">
-        <input type="checkbox" aria-label="Checkbox for following text input">
-        Iphone
-      </div>
-    </div>
-    <input type="text" class="form-control" aria-label="Text input with checkbox">
-  </div>
+  <form [formGroup]="itemsForm" (ngSubmit)="onSave()">
 
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <div class="input-group-text">
-        <input type="checkbox" aria-label="Checkbox for following text input">
-        Lenovo
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" aria-label="Checkbox for following text input">
+          Iphone
+        </div>
       </div>
+      <input type="text" class="form-control" aria-label="Text input with checkbox">
     </div>
-    <input type="text" class="form-control" aria-label="Text input with checkbox">
-  </div>
+  
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <input type="checkbox" aria-label="Checkbox for following text input">
+          Lenovo
+        </div>
+      </div>
+      <input type="text" class="form-control" aria-label="Text input with checkbox">
+    </div>
+  
+    <button type="button" class="btn btn-warning" (click)="addItem()">
+      Add
+    </button>
+
+  </form>
     
 </div>
 
@@ -41,7 +49,7 @@
   </button>
   
   <button type="button" class="btn btn-success" (click)="onSave()">
-    Save
+    Sell
   </button>
 
 </div>
