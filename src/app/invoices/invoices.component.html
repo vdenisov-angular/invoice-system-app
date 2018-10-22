@@ -22,7 +22,7 @@
 
 <ng-template #nameTmpl let-row="row" let-value="value">
 
-  {{ getNameById(value) }}
+  {{ (value | customerName | async)?.name }}
 
 </ng-template>
 

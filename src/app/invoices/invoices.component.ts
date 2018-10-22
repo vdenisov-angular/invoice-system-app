@@ -46,15 +46,6 @@ export class InvoicesComponent implements OnInit {
 
         const arr = this.invoices.getValue();
 
-        // arr.forEach(invoice => {
-        //   this.customerService
-        //     .getById(invoice.customer_id)
-        //     .subscribe(customer => {
-        //       invoice.customer_name = customer.name;
-        //       this.invoices.next([...arr]);
-        //     });
-        // });
-
         this.loadingIndicator = false;
       });
 
