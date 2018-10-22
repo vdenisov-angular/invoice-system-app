@@ -20,6 +20,9 @@ import {
 export class InvoicesComponent implements OnInit {
 
   @ViewChild('actionTmpl') actionTmpl: TemplateRef<any>;
+  @ViewChild('nameTmpl') nameTmpl: TemplateRef<any>;
+
+  public buf: Array<any> = [];
 
   public invoices = new BehaviorSubject<IInvoice[]>([]);
   public tableColumns = [];
@@ -43,20 +46,21 @@ export class InvoicesComponent implements OnInit {
 
         const arr = this.invoices.getValue();
 
-        arr.forEach(invoice => {
-          this.customerService
-            .getById(invoice.customer_id)
-            .subscribe(customer => {
-              invoice.customer_name = customer.name;
-              this.invoices.next([...arr]);
-            });
-        });
+        // arr.forEach(invoice => {
+        //   this.customerService
+        //     .getById(invoice.customer_id)
+        //     .subscribe(customer => {
+        //       invoice.customer_name = customer.name;
+        //       this.invoices.next([...arr]);
+        //     });
+        // });
 
         this.loadingIndicator = false;
       });
 
     this.tableColumns = [
-      { name: 'Customer', prop: 'customer_name',  },
+      { name: 'Customer', prop: 'customer_id', cellTemplate: this.nameTmpl, },
+      // { name: 'Customer', prop: 'customer_name', },
       { name: 'Discount %', prop: 'discount' },
       { name: 'Total $', prop: 'total' },
       { cellTemplate: this.actionTmpl }
@@ -111,6 +115,22 @@ export class InvoicesComponent implements OnInit {
             });
         }
       });
+  }
+
+  public getNameById(customerId) {
+
+    console.log(customerId)
+
+    this.buf.push(customerId);
+
+    console.log('total => ', this.buf.length);
+
+    // this.customerService
+    //   .getById(customerId)
+    //   .subscribe(user => {
+    //     return user.name
+    //   })
+
   }
 
 

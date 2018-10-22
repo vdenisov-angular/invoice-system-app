@@ -20,6 +20,12 @@
   [footerHeight]="50"
 ></ngx-datatable>
 
+<ng-template #nameTmpl let-row="row" let-value="value">
+
+  {{ getNameById(value) }}
+
+</ng-template>
+
 <ng-template #actionTmpl let-row="row" let-value="value">
 
   <!-- TODO : убрать кнопки, оставить только иконки -->
