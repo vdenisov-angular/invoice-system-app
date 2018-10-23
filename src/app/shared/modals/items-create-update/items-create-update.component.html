@@ -13,8 +13,39 @@
 
 <div class="modal-body">
 
-  form area ...
-    
+  <form [formGroup]="editingForm" (ngSubmit)="onSave()">
+
+    <!-- NAME -->
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Product</span>
+      </div>
+      <input [ngbTypeahead]="search" #instance="ngbTypeahead"
+        (focus)="focus$.next($event.target.value)"
+        (click)="click$.next($event.target.value)"
+        (selectItem)="onSelectItem($event)"
+        [resultFormatter]="formatter"
+
+        formControlName="product"
+        data-error="wrong text" data-success="right text"
+        type="text" class="form-control"
+        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+      />
+    </div>
+
+    <!-- QUANTITY -->
+
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="inputGroup-sizing-default">Quantity</span>
+      </div>
+      <input type="text" class="form-control" formControlName="quantity"
+        aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+    </div>
+
+  </form>
+
 </div>
 
 <div class="modal-footer">

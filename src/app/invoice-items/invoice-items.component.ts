@@ -26,7 +26,7 @@ export class InvoiceItemsComponent implements OnInit {
 
   public invoiceId: number;
 
-  public items = new BehaviorSubject<IInvoice[]>([]);
+  public items = new BehaviorSubject<IInvoiceItem[]>([]);
   public tableColumns = [];
 
   public loadingIndicator = true;
@@ -76,18 +76,27 @@ export class InvoiceItemsComponent implements OnInit {
     modalRef.result
       .then((data) => {
         if (data) {
-          console.log('data => ', data);
+          data.invoice_id = this.invoiceId;
+          this.invoiceItemsService
+            .create(this.invoiceId, data)
+            .subscribe((createdItem: IInvoiceItem) => {
+              const arr = this.items.getValue();
+              arr.push(createdItem);
+              this.items.next([...arr]);
+              console.log(this.items.getValue());
+
+            })
         }
       });
   }
 
-  public onEdit(row) {
+  public onEdit(item: IInvoiceItem) {
     const modalRef = this.modalService
       .open(ItemsCreateUpdateComponent, { centered: true });
 
     const inputData = {
       action: 'edit',
-      item: row
+      item
     };
 
     Object.assign(modalRef.componentInstance, inputData);
@@ -95,7 +104,15 @@ export class InvoiceItemsComponent implements OnInit {
     modalRef.result
       .then((data) => {
         if (data) {
-          console.log('data => ', data);
+          data.invoice_id = this.invoiceId;
+          this.invoiceItemsService
+            .updateById(this.invoiceId, item.id, data)
+            .subscribe((updatedItem: IInvoiceItem) => {
+              const arr = this.items.getValue();
+              const index = arr.indexOf(item);
+              arr.splice(index, 1, updatedItem);
+              this.items.next([...arr]);
+            })
         }
       });
   }

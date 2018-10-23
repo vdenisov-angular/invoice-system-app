@@ -70,7 +70,7 @@ export class InvoicesComponent implements OnInit {
           console.log('data => ', data);
           this.invoiceService
             .create(data)
-            .subscribe((createdInvoice) => {
+            .subscribe((createdInvoice: IInvoice) => {
               const arr = this.invoices.getValue();
 
               createdInvoice.customer_name = data.customer_name;
@@ -78,6 +78,9 @@ export class InvoicesComponent implements OnInit {
               arr.push(createdInvoice);
               this.invoices.next([...arr]);
               console.log(this.invoices.getValue());
+
+              // TODO: redirect to invoice page
+              this.router.navigate([`invoices/${createdInvoice.id}`])
             });
         }
       });
