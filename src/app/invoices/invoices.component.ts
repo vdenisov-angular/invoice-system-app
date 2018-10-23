@@ -10,6 +10,7 @@ import {
   InvoicesCreateUpdateComponent,
   SelectInvoiceItemsComponent,
 } from '../shared/modals';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class InvoicesComponent implements OnInit {
   constructor(
     private invoiceService: InvoicesService,
     private customerService: CustomersService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -105,6 +107,11 @@ export class InvoicesComponent implements OnInit {
             });
         }
       });
+  }
+
+  public showItemsForInvoice(invoice: IInvoice) {
+    const specUrl = `/invoices/${invoice.id}`;
+    this.router.navigateByUrl(specUrl);
   }
 
 }
