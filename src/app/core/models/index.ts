@@ -75,3 +75,20 @@ export class Invoice implements IInvoice {
   }
 
 }
+
+export class InvoiceItem implements IInvoiceItem {
+
+  public invoice_id = 0;
+  public product_id = 0;
+  public quantity = 0;
+
+  constructor(itemObject?: IInvoiceItem) {
+    if (itemObject) {
+      this.invoice_id = itemObject.invoice_id;
+      this.product_id = itemObject.product_id;
+      this.quantity = itemObject.quantity;
+    }
+  }
+
+}
+

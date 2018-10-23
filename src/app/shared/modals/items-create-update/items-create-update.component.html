@@ -1,0 +1,30 @@
+<div class="modal-header">
+
+  <span class="modal-title">
+    <h4 *ngIf="action === 'create'">Addition form</h4>
+    <h4 *ngIf="action === 'edit'">Edit form</h4>
+  </span>
+
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.close(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+
+</div>
+
+<div class="modal-body">
+
+  form area ...
+    
+</div>
+
+<div class="modal-footer">
+
+  <button type="button" class="btn btn-outline-secondary" (click)="activeModal.close(false)">
+    Cancel
+  </button>
+  
+  <button type="button" class="btn btn-success" (click)="onSave()">
+    {{ buttonOk }}
+  </button>
+
+</div>
