@@ -67,4 +67,8 @@ export class InvoiceItemsComponent implements OnInit {
     console.log('delete', row);
   }
 
+  public goBack() {
+    this.router.navigateByUrl('/invoices');
+  }
+
 }
