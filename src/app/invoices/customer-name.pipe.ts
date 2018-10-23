@@ -7,11 +7,11 @@ import { CustomersService } from '../core/services';
 export class CustomerNamePipe implements PipeTransform {
 
   constructor(
-    private customerService: CustomersService,
+    private customersService: CustomersService,
   ) { }
 
   transform(value: any, args?: any): any {
-    return this.customerService.getById(value)
+    return this.customersService.getById(value)
   }
 
 }

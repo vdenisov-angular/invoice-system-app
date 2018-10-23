@@ -1,3 +1,43 @@
-<p>
-  invoice-items works!
-</p>
+<div class="d-flex flex-row area-header">
+  <h2>Items for invoice</h2>
+
+</div>
+
+<ngx-datatable
+  class="material"
+
+  [loadingIndicator]="loadingIndicator"
+ 
+  [columns]="tableColumns"
+  [rows]="items | async"
+  
+  [columnMode]="'force'"
+
+  [headerHeight]="50"
+  [rowHeight]="70"
+  [footerHeight]="50"
+></ngx-datatable>
+
+<ng-template #nameTmpl let-row="row" let-value="value">
+
+  {{ (value | productName | async)?.name }}
+
+</ng-template>
+
+<ng-template #actionTmpl let-row="row" let-value="value">
+
+  <!-- TODO : убрать кнопки, оставить только иконки -->
+
+  <div class="d-flex justify-content-around">
+
+    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onEdit(row)">
+      <i class="fa fa-pencil-alt"></i>
+    </button>
+
+    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onDelete(row)">
+      <i class="fa fa-trash-alt"></i>
+    </button>
+
+  </div>
+
+</ng-template>

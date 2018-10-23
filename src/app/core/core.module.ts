@@ -4,6 +4,7 @@ import {
   CustomersService,
   ProductsService,
   InvoicesService,
+  InvoiceItemsService,
 } from './services';
 
 
@@ -16,6 +17,7 @@ export class CoreModule {
         CustomersService,
         ProductsService,
         InvoicesService,
+        InvoiceItemsService,
       ]
     };
   }

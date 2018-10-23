@@ -110,6 +110,7 @@ export class InvoicesComponent implements OnInit {
   }
 
   public showItemsForInvoice(invoice: IInvoice) {
+    console.log('show invoice => ', invoice);
     const specUrl = `/invoices/${invoice.id}`;
     this.router.navigateByUrl(specUrl);
   }
