@@ -2,8 +2,8 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { NgbActiveModal, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
-import { ProductsService } from './../../../core/services/products.service';
-import { IInvoiceItem, IProduct, Product } from './../../../core/models/index';
+import { ProductsService } from '../../../core/services/products.service';
+import { IInvoiceItem, IProduct, Product } from '../../../core/models';
 
 import { Observable, Subject, merge, BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, filter } from 'rxjs/operators';

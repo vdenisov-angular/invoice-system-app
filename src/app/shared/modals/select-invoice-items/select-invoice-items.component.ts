@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { CustomersService } from './../../../core/services';
+import { CustomersService } from '../../../core/services';
 import { IInvoice } from '../../../core/models';
 
 

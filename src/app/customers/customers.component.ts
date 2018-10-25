@@ -10,7 +10,7 @@ import {
   CustomersCreateUpdateComponent,
 
   DialogCreateUpdateComponent
-} from './../shared/modals';
+} from '../shared/modals';
 
 
 @Component({

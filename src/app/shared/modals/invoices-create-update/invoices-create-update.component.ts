@@ -1,10 +1,10 @@
-import { ICustomer, Customer } from './../../../core/models/index';
+import { ICustomer, Customer } from '../../../core/models';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { CustomersService } from './../../../core/services';
+import { CustomersService } from '../../../core/services';
 import { IInvoice } from '../../../core/models';
 
 import { Observable, Subject, merge, BehaviorSubject } from 'rxjs';

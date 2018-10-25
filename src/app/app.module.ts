@@ -10,8 +10,7 @@ import { CoreModule } from './core/core.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
-import { CustomersComponent } from './customers/customers.component';
-import { CustomerPageComponent } from './customer-page/customer-page.component';
+
 import { ProductsComponent } from './products/products.component';
 import { InvoicesComponent } from './invoices/invoices.component';
 import { InvoiceItemsComponent } from './invoice-items/invoice-items.component';
@@ -23,8 +22,7 @@ import { ProductNamePipe } from './invoice-items/product-name.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    CustomersComponent,
-    CustomerPageComponent,
+
     ProductsComponent,
     InvoicesComponent,
     InvoiceItemsComponent,
