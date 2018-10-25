@@ -4,8 +4,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { BehaviorSubject } from 'rxjs';
 
-import { InvoicesService, InvoiceItemsService } from './../../core/services';
-import { IInvoiceItem, InvoiceItem } from './../../core/models';
+import { InvoicesService, InvoiceItemsService, ProductsService } from './../../core/services';
+import { IInvoiceItem, InvoiceItem, IProduct } from './../../core/models';
 
 import { ConfirmDeleteComponent, ItemsCreateUpdateComponent } from './../../shared/modals';
 
@@ -27,12 +27,15 @@ export class InvoiceItemsComponent implements OnInit {
 
   public loadingIndicator = true;
 
+  public totalPrice = 0;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private modalService: NgbModal,
     private invoicesService: InvoicesService,
-    private invoiceItemsService: InvoiceItemsService
+    private invoiceItemsService: InvoiceItemsService,
+    private productsService: ProductsService
   ) { }
 
   ngOnInit() {
@@ -47,7 +50,6 @@ export class InvoiceItemsComponent implements OnInit {
       .subscribe(itemsList => {
         this.items.next(itemsList);
         const arr = this.items.getValue();
-        console.log('items => ', arr);
         this.loadingIndicator = false;
       });
 
@@ -79,8 +81,6 @@ export class InvoiceItemsComponent implements OnInit {
               const arr = this.items.getValue();
               arr.push(createdItem);
               this.items.next([...arr]);
-              console.log(this.items.getValue());
-
             })
         }
       });
@@ -108,9 +108,37 @@ export class InvoiceItemsComponent implements OnInit {
               const index = arr.indexOf(item);
               arr.splice(index, 1, updatedItem);
               this.items.next([...arr]);
+
+              this.calculateInvoicePrice();
             })
         }
       });
+  }
+
+  public async calculateInvoicePrice() {
+    const itemsList: IInvoiceItem[] = this.items.getValue();
+    await itemsList.forEach((item: IInvoiceItem) => {
+      this.productsService
+        .getById(item.product_id)
+        .subscribe((product: IProduct) => {
+          const itemPrice = item.quantity * product.price;
+          this.totalPrice += itemPrice;
+          console.log(`Product #${item.product_id} => ${itemPrice} $`);
+        });
+    });
+    console.log('total => ', this.totalPrice);
+    // for (const item of itemsList) {
+    //   await this.productsService
+    //     .getById(item.product_id)
+    //     .subscribe((product: IProduct) => {
+    //       const itemPrice = item.quantity * product.price;
+    //       this.totalPrice += itemPrice;
+    //       console.log(`Product #${item.product_id} => ${itemPrice} $`);
+    //       console.log('total #1 => ', this.totalPrice);
+    //     })
+    //   console.log('total #2 => ', this.totalPrice);
+    // }
+    // console.log('total #3 => ', this.totalPrice);
   }
 
   public onDelete(item: IInvoiceItem) {
