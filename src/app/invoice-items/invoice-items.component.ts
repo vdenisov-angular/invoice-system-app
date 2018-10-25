@@ -136,7 +136,6 @@ export class InvoiceItemsComponent implements OnInit {
       });
   }
 
-
   public goBack() {
     this.router.navigateByUrl('/invoices');
   }
