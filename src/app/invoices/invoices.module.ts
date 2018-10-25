@@ -5,10 +5,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { InvoicesComponent } from './invoices.component';
-import { InvoiceItemsComponent } from '../invoice-items/invoice-items.component';
+import { InvoiceItemsComponent } from './invoice-items/invoice-items.component';
 
 import { CustomerNamePipe } from './customer-name.pipe';
-import { ProductNamePipe } from '../invoice-items/product-name.pipe';
+import { ProductNamePipe } from './invoice-items/product-name.pipe';
 
 
 const routes: Routes = [

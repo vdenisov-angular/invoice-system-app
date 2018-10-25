@@ -1,17 +1,13 @@
-import { InvoiceItem } from '../core/models';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { InvoiceItemsService } from '../core/services/invoice-items.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { BehaviorSubject } from 'rxjs';
 
-import { InvoicesService } from '../core/services';
-import { IInvoice, IInvoiceItem } from '../core/models';
+import { InvoicesService, InvoiceItemsService } from './../../core/services';
+import { IInvoiceItem, InvoiceItem } from './../../core/models';
 
-import {
-  ConfirmDeleteComponent,
-  ItemsCreateUpdateComponent
-} from '../shared/modals';
+import { ConfirmDeleteComponent, ItemsCreateUpdateComponent } from './../../shared/modals';
 
 
 @Component({
