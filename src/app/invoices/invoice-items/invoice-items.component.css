@@ -10,3 +10,12 @@ h2 {
     display: block;
     margin: 20px auto;
 }
+
+.info {
+    font-size: 20px;
+    width: 250px;
+}
+
+.adding-button {
+    margin-left: 20px;
+}

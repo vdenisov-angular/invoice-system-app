@@ -1,10 +1,11 @@
+import { IInvoice } from './../../core/models/index';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { BehaviorSubject } from 'rxjs';
 
-import { InvoicesService, InvoiceItemsService, ProductsService } from './../../core/services';
+import { InvoicesService, InvoiceItemsService, ProductsService, CustomersService } from './../../core/services';
 import { IInvoiceItem, InvoiceItem, IProduct } from './../../core/models';
 
 import { ConfirmDeleteComponent, ItemsCreateUpdateComponent } from './../../shared/modals';
@@ -21,6 +22,7 @@ export class InvoiceItemsComponent implements OnInit {
   @ViewChild('nameTmpl') nameTmpl: TemplateRef<any>;
 
   public invoiceId: number;
+  public invoice: IInvoice;
 
   public items = new BehaviorSubject<IInvoiceItem[]>([]);
   public tableColumns = [];
@@ -35,27 +37,29 @@ export class InvoiceItemsComponent implements OnInit {
     private modalService: NgbModal,
     private invoicesService: InvoicesService,
     private invoiceItemsService: InvoiceItemsService,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private customersService: CustomersService
   ) { }
 
   ngOnInit() {
     this.invoiceId = +this.route.snapshot.params['id'];
-    // this.invoicesService
-    //   .getById(this.id)
-    //   .subscribe(data => {
-    //     this.invoice = data;
-    //   })
+    this.invoicesService
+      .getById(this.invoiceId)
+      .subscribe(data => {
+        this.invoice = data;
+        console.log('customer_id => ', this.invoice.customer_id)
+      });
     this.invoiceItemsService
       .getAll(this.invoiceId)
       .subscribe(itemsList => {
         this.items.next(itemsList);
-        const arr = this.items.getValue();
         this.loadingIndicator = false;
       });
 
     this.tableColumns = [
       { name: 'Product', prop: 'product_id', cellTemplate: this.nameTmpl },
       { name: 'Quantity (pieces)', prop: 'quantity' },
+      { name: 'Price (total)', prop: 'total' },
       { cellTemplate: this.actionTmpl }
     ];
   }
@@ -72,16 +76,17 @@ export class InvoiceItemsComponent implements OnInit {
     Object.assign(modalRef.componentInstance, inputData);
 
     modalRef.result
-      .then((data) => {
-        if (data) {
-          data.invoice_id = this.invoiceId;
+      .then(newData => {
+        if (newData) {
+          newData.invoice_id = this.invoiceId;
           this.invoiceItemsService
-            .create(this.invoiceId, data)
+            .create(this.invoiceId, newData)
             .subscribe((createdItem: IInvoiceItem) => {
+              createdItem.total = Number( (newData.quantity * newData.price).toFixed(2) );
               const arr = this.items.getValue();
               arr.push(createdItem);
               this.items.next([...arr]);
-            })
+            });
         }
       });
   }
@@ -158,10 +163,6 @@ export class InvoiceItemsComponent implements OnInit {
             });
         }
       });
-  }
-
-  public goBack() {
-    this.router.navigateByUrl('/invoices');
   }
 
 }

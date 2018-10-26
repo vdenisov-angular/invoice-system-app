@@ -1,11 +1,29 @@
-<div class="d-flex flex-row area-header addition">
+<div class="d-flex flex-row align-self-center addition">
 
   <!-- <button type="button" class="btn btn-outline-dark" (click)="goBack()">Back</button> -->
 
-  <h2>Items for invoice</h2>
+  <div class="info">
+    Customer: 
+    <span *ngIf="invoice; else loadingName">
+      {{ (invoice.customer_id | customerName | async)?.name }}
+    </span>
+    <ng-template #loadingName>
+      loading...
+    </ng-template>
+  </div>
 
-  <button type="button" class="btn btn-primary btn-lg area-button-add" (click)="onCreate()">
-    add
+  <div class="info">
+    Discount: 
+    <span *ngIf="invoice; else loadingDiscount">
+      {{ invoice.discount }} %
+    </span>
+    <ng-template #loadingDiscount>
+      loading...
+    </ng-template>
+  </div>
+  
+  <button type="button" class="btn btn-primary adding-button" (click)="onCreate()">
+    add new items to invoice
   </button>
 
 </div>
@@ -24,6 +42,18 @@
   [rowHeight]="70"
   [footerHeight]="50"
 ></ngx-datatable>
+
+<div class="info">
+  Total: 
+  <span *ngIf="invoice; else loadingTotal">
+    {{ invoice.total | currency }}
+  </span>
+  <ng-template #loadingTotal>
+    loading...
+  </ng-template>
+</div>
+
+<!-- TEMPLATES -->
 
 <ng-template #nameTmpl let-row="row" let-value="value">
 
@@ -48,8 +78,3 @@
   </div>
 
 </ng-template>
-
-<button type="button" (click)="goBack()"
-  class="btn btn-outline-secondary action-go-back">
-  back to invoices
-</button>

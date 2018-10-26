@@ -23,6 +23,7 @@ export interface IInvoice {
 
 export interface IInvoiceItem {
   id?: number;
+  total: number;
   invoice_id: number;
   product_id: number;
   quantity: number;
@@ -81,6 +82,7 @@ export class InvoiceItem implements IInvoiceItem {
   public invoice_id = 0;
   public product_id = 0;
   public quantity = 0;
+  public total = 0;
 
   constructor(itemObject?: IInvoiceItem) {
     if (itemObject) {
@@ -89,6 +91,10 @@ export class InvoiceItem implements IInvoiceItem {
       this.quantity = itemObject.quantity;
     }
   }
+
+  // public updateInvoiceId(id: number): void {
+  //   this.invoice_id = id;
+  // }
 
 }
 

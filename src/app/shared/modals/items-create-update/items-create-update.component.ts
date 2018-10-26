@@ -105,12 +105,13 @@ export class ItemsCreateUpdateComponent implements OnInit {
   }
 
   public onSave() {
+    const userInput = this.editingForm.value;
     const selectedProduct = this.currentProduct.getValue();
 
-    const userInput = this.editingForm.value;
     const updatedInfo = {
       product_id: selectedProduct.id || -1,
       quantity: parseInt(userInput.quantity, 10) || this.item.quantity,
+      price: selectedProduct.price
     };
 
     this.activeModal.close(updatedInfo);

@@ -69,7 +69,6 @@ export class InvoicesCreateUpdateComponent implements OnInit {
 
     });
 
-    this.editingForm.controls['discount'].disable();
     this.editingForm.controls['total'].disable();
 
     this.customerService
