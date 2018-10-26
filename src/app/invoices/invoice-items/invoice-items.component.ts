@@ -1,4 +1,3 @@
-import { IInvoice } from './../../core/models/index';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -6,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 
 import { InvoicesService, InvoiceItemsService, ProductsService, CustomersService } from './../../core/services';
-import { IInvoiceItem, InvoiceItem, IProduct } from './../../core/models';
+import { IInvoice, IInvoiceItem, InvoiceItem, IProduct } from './../../core/models';
 
 import { ConfirmDeleteComponent, ItemsCreateUpdateComponent } from './../../shared/modals';
 
@@ -51,7 +50,16 @@ export class InvoiceItemsComponent implements OnInit {
       });
     this.invoiceItemsService
       .getAll(this.invoiceId)
-      .subscribe(itemsList => {
+      .subscribe((itemsList) => {
+        itemsList.map((item: IInvoiceItem) => {
+          item.total = 'loading...';
+          this.productsService
+            .getById(item.product_id)
+            .subscribe((product: IProduct) => {
+              item.total = Number( (item.quantity * product.price).toFixed(2) );
+            });
+        });
+        console.log('items list => ', itemsList)
         this.items.next(itemsList);
         this.loadingIndicator = false;
       });
@@ -103,12 +111,13 @@ export class InvoiceItemsComponent implements OnInit {
     Object.assign(modalRef.componentInstance, inputData);
 
     modalRef.result
-      .then((data) => {
-        if (data) {
-          data.invoice_id = this.invoiceId;
+      .then((newData) => {
+        if (newData) {
+          newData.invoice_id = this.invoiceId;
           this.invoiceItemsService
-            .updateById(this.invoiceId, item.id, data)
+            .updateById(this.invoiceId, item.id, newData)
             .subscribe((updatedItem: IInvoiceItem) => {
+              updatedItem.total = Number( (newData.quantity * newData.price).toFixed(2) );
               const arr = this.items.getValue();
               const index = arr.indexOf(item);
               arr.splice(index, 1, updatedItem);
@@ -145,6 +154,7 @@ export class InvoiceItemsComponent implements OnInit {
     // }
     // console.log('total #3 => ', this.totalPrice);
   }
+
 
   public onDelete(item: IInvoiceItem) {
     const modalRef = this.modalService

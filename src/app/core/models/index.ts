@@ -23,7 +23,7 @@ export interface IInvoice {
 
 export interface IInvoiceItem {
   id?: number;
-  total: number;
+  total: number | string;
   invoice_id: number;
   product_id: number;
   quantity: number;
