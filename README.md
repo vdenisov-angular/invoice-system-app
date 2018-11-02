@@ -7,8 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 This application is an example of a simple crm system. The project was designed to practice the basics of angular and bootstrap. The application has several tabs (Customers, Products, Invoices). For a more beautiful presentation of the tables ngx-datatable was used.
 
 
-
-![app-screen](/home/vdenisov/study/app-screen.png)
+![app-screen](https://github.com/vdenisov-dev/feassessment-client/blob/master/img/app-screen.png)
 
 ## View
 
