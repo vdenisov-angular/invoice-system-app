@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 
 
-import { CustomersService } from 'src/app/core/services';
+import { CustomersService } from './../../shared/services';
 import { ICustomer, Customer } from './../../shared/types';
 
 import { ConfirmDeleteComponent } from 'src/app/shared/modals';
