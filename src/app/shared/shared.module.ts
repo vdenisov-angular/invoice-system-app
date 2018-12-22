@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
-  HeaderComponent,
   HomeComponent,
 } from './layout';
 
@@ -26,7 +25,6 @@ import {  } from './modals/select-invoice-items/select-invoice-items.component';
 
 @NgModule({
   declarations: [
-    HeaderComponent,
     HomeComponent,
 
     ConfirmDeleteComponent,
@@ -64,7 +62,6 @@ import {  } from './modals/select-invoice-items/select-invoice-items.component';
     ItemsCreateUpdateComponent,
   ],
   exports: [
-    HeaderComponent,
     HomeComponent,
 
     HttpClientModule,

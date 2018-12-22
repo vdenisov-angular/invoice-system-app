@@ -1,5 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 
+import { HeaderComponent } from './header/header.component';
+
 import {
   CustomersService,
   ProductsService,
@@ -7,8 +9,14 @@ import {
   InvoiceItemsService,
 } from './services';
 
-
-@NgModule({ })
+@NgModule({
+  declarations: [
+    HeaderComponent
+  ],
+  exports: [
+    HeaderComponent
+  ]
+})
 export class CoreModule {
   static forRoot(): ModuleWithProviders {
     return {
