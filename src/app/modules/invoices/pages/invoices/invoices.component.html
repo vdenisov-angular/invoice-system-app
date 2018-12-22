@@ -1,0 +1,45 @@
+<div class="d-flex flex-row area-header">
+  <h2>Invoices list</h2>
+  <button type="button" class="btn btn-primary btn-lg area-button-add" (click)="onCreate()">
+    add
+  </button>
+</div>
+
+<ngx-datatable
+  class="material"
+
+  [loadingIndicator]="loadingIndicator"
+ 
+  [columns]="tableColumns"
+  [rows]="invoices | async"
+  
+  [columnMode]="'force'"
+
+  [headerHeight]="50"
+  [rowHeight]="70"
+  [footerHeight]="50"
+></ngx-datatable>
+
+<ng-template #nameTmpl let-row="row" let-value="value">
+
+  {{ (value | customerName | async)?.name }}
+
+</ng-template>
+
+<ng-template #actionTmpl let-row="row" let-value="value">
+
+  <!-- TODO : убрать кнопки, оставить только иконки -->
+
+  <div class="d-flex justify-content-around">
+
+    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="showItemsForInvoice(row)">
+      <i class="fa fa-shopping-cart"></i>
+    </button>
+
+    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onDelete(row)">
+      <i class="fa fa-trash-alt"></i>
+    </button>
+
+  </div>
+
+</ng-template>
