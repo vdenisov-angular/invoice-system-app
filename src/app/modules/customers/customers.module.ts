@@ -1,24 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes, RouterModule } from '@angular/router';
 
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { CustomersRoutingModule } from './customers-routing.module';
 
 import { CustomersComponent } from './pages';
 import { CustomersCreateUpdateComponent } from './components';
-import { SharedModule } from 'src/app/shared/shared.module';
-
-
-const routes: Routes = [
-  { path: '', component: CustomersComponent }
-];
 
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(routes),
+    CustomersRoutingModule,
   ],
   declarations: [
     CustomersComponent,
