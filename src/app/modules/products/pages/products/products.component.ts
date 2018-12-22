@@ -3,9 +3,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 
 import { ProductsService } from 'src/app/core/services';
-import { IProduct, Product } from './../../shared/types';
-
 import { ConfirmDeleteComponent } from 'src/app/shared/modals';
+
+import { IProduct, Product } from './../../shared/types';
 import { ProductsCreateUpdateComponent } from './../../components';
 
 
