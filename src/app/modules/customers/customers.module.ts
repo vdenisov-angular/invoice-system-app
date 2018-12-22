@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { CustomersComponent } from './customers.component';
+import { CustomersComponent } from './pages/customers/customers.component';
 
 
 const routes: Routes = [
