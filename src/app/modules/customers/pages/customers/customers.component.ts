@@ -53,15 +53,6 @@ export class CustomersComponent implements OnInit {
       customer: new Customer()
     };
 
-    // const modalRef = this.modalService
-    //   .open(DialogCreateUpdateComponent, { centered: true });
-
-    // const inputData = {
-    //   type: 'ICustomer',
-    //   action: 'create',
-    //   itemData: new Customer()
-    // };
-
     Object.assign(modalRef.componentInstance, inputData);
 
     modalRef.result
@@ -89,15 +80,6 @@ export class CustomersComponent implements OnInit {
       action: 'edit',
       customer: customer
     };
-
-    // const modalRef = this.modalService
-    //   .open(DialogCreateUpdateComponent, { centered: true });
-
-    // const inputData = {
-    //   type: 'ICustomer',
-    //   action: 'edit',
-    //   itemData: customer
-    // };
 
     Object.assign(modalRef.componentInstance, inputData);
 

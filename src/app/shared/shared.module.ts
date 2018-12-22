@@ -12,7 +12,6 @@ import {
 
   InvoicesCreateUpdateComponent,
 
-  DialogCreateUpdateComponent,
   SelectInvoiceItemsComponent,
 
   ItemsCreateUpdateComponent,
@@ -32,8 +31,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
     InvoicesCreateUpdateComponent,
 
-    DialogCreateUpdateComponent,
-
     SelectInvoiceItemsComponent,
 
     ItemsCreateUpdateComponent,
@@ -52,8 +49,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     ConfirmDeleteComponent,
 
     InvoicesCreateUpdateComponent,
-
-    DialogCreateUpdateComponent,
 
     SelectInvoiceItemsComponent,
 
