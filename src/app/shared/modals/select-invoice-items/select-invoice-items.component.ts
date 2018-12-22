@@ -3,7 +3,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { CustomersService } from '../../../core/services';
 import { IInvoice } from '../../../core/models';
 
 
@@ -18,7 +17,6 @@ export class SelectInvoiceItemsComponent implements OnInit {
 
   constructor(
     public activeModal: NgbActiveModal,
-    private customerService: CustomersService,
     private fb: FormBuilder
   ) { }
 

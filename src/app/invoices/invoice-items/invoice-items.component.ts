@@ -4,7 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { BehaviorSubject } from 'rxjs';
 
-import { InvoicesService, InvoiceItemsService, ProductsService, CustomersService } from './../../core/services';
+import { InvoicesService, InvoiceItemsService, ProductsService } from './../../core/services';
 import { IInvoice, IInvoiceItem, InvoiceItem, IProduct } from './../../core/models';
 
 import { ConfirmDeleteComponent, ItemsCreateUpdateComponent } from './../../shared/modals';
@@ -37,7 +37,6 @@ export class InvoiceItemsComponent implements OnInit {
     private invoicesService: InvoicesService,
     private invoiceItemsService: InvoiceItemsService,
     private productsService: ProductsService,
-    private customersService: CustomersService
   ) { }
 
   ngOnInit() {

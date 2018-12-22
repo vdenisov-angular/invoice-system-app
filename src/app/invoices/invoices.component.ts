@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 
-import { InvoicesService, CustomersService } from '../core/services';
+import { InvoicesService } from '../core/services';
 import { IInvoice, Invoice } from '../core/models';
 
 import {
@@ -31,7 +31,6 @@ export class InvoicesComponent implements OnInit {
 
   constructor(
     private invoiceService: InvoicesService,
-    private customerService: CustomersService,
     private modalService: NgbModal,
     private router: Router
   ) { }
