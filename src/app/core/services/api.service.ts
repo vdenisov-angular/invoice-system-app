@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  // private host = 'http://localhost:5000/api';
-  private host = 'https://vdenisov-assessment-api.herokuapp.com/api';
+  private host = environment.apiUrl
 
   constructor(private http: HttpClient) { }
 
