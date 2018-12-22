@@ -10,7 +10,6 @@ import {
 import {
   ConfirmDeleteComponent,
 
-  CustomersCreateUpdateComponent,
   ProductsCreateUpdateComponent,
   InvoicesCreateUpdateComponent,
 
@@ -19,8 +18,11 @@ import {
 
   ItemsCreateUpdateComponent,
 } from './modals';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import {  } from './modals/select-invoice-items/select-invoice-items.component';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+
+// import {  } from './modals/select-invoice-items/select-invoice-items.component';
 
 
 @NgModule({
@@ -29,7 +31,6 @@ import {  } from './modals/select-invoice-items/select-invoice-items.component';
 
     ConfirmDeleteComponent,
 
-    CustomersCreateUpdateComponent,
     ProductsCreateUpdateComponent,
     InvoicesCreateUpdateComponent,
 
@@ -46,12 +47,12 @@ import {  } from './modals/select-invoice-items/select-invoice-items.component';
     FormsModule,
     ReactiveFormsModule,
 
-    NgbModule
+    NgbModule,
+    NgxDatatableModule,
   ],
   entryComponents: [
     ConfirmDeleteComponent,
 
-    CustomersCreateUpdateComponent,
     ProductsCreateUpdateComponent,
     InvoicesCreateUpdateComponent,
 
@@ -70,6 +71,7 @@ import {  } from './modals/select-invoice-items/select-invoice-items.component';
     ReactiveFormsModule,
 
     NgbModule,
+    NgxDatatableModule,
   ]
 })
 export class SharedModule { }

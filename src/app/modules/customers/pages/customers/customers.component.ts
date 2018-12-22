@@ -4,13 +4,10 @@ import { BehaviorSubject } from 'rxjs';
 
 
 import { CustomersService } from 'src/app/core/services';
-import { ICustomer, Customer } from 'src/app/core/models';
+import { ICustomer, Customer } from './../../shared/types';
 
-import {
-  ConfirmDeleteComponent,
-  CustomersCreateUpdateComponent,
-  DialogCreateUpdateComponent
-} from 'src/app/shared/modals';
+import { ConfirmDeleteComponent } from 'src/app/shared/modals';
+import { CustomersCreateUpdateComponent } from './../../components';
 
 
 @Component({
