@@ -10,7 +10,6 @@ import {
 import {
   ConfirmDeleteComponent,
 
-  ProductsCreateUpdateComponent,
   InvoicesCreateUpdateComponent,
 
   DialogCreateUpdateComponent,
@@ -31,7 +30,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
     ConfirmDeleteComponent,
 
-    ProductsCreateUpdateComponent,
     InvoicesCreateUpdateComponent,
 
     DialogCreateUpdateComponent,
@@ -53,7 +51,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
   entryComponents: [
     ConfirmDeleteComponent,
 
-    ProductsCreateUpdateComponent,
     InvoicesCreateUpdateComponent,
 
     DialogCreateUpdateComponent,

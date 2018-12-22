@@ -2,13 +2,11 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 
-import { ProductsService } from '../core/services';
-import { IProduct, Product } from '../core/models';
+import { ProductsService } from 'src/app/core/services';
+import { IProduct, Product } from './../../shared/types';
 
-import {
-  ConfirmDeleteComponent,
-  ProductsCreateUpdateComponent,
-} from '../shared/modals';
+import { ConfirmDeleteComponent } from 'src/app/shared/modals';
+import { ProductsCreateUpdateComponent } from './../../components';
 
 
 @Component({

@@ -7,11 +7,9 @@ import { HomeComponent } from './shared/layout';
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
 
-  { path: 'customers', loadChildren: './modules/customers/customers.module#CustomersModule' },
-
-  { path: 'products', loadChildren: './products/products.module#ProductsModule' },
-
-  { path: 'invoices', loadChildren: './invoices/invoices.module#InvoicesModule' },
+  { path: 'customers',  loadChildren: './modules/customers/customers.module#CustomersModule' },
+  { path: 'products',   loadChildren: './modules/products/products.module#ProductsModule' },
+  { path: 'invoices',   loadChildren: './invoices/invoices.module#InvoicesModule' },
 
   { path: '**', redirectTo: '' }
 ];

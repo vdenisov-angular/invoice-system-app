@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { SharedModule } from 'src/app/shared/shared.module';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { ProductsComponent } from './products.component';
+import { ProductsComponent } from './pages';
+import { ProductsCreateUpdateComponent } from './components';
 
 
 const routes: Routes = [
@@ -14,11 +16,15 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    NgxDatatableModule,
+    SharedModule,
     RouterModule.forChild(routes),
   ],
   declarations: [
-    ProductsComponent
+    ProductsComponent,
+    ProductsCreateUpdateComponent,
+  ],
+  entryComponents: [
+    ProductsCreateUpdateComponent,
   ]
 })
 export class ProductsModule { }
