@@ -3,12 +3,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { IInvoice, IInvoiceItem, InvoiceItem, IProduct } from 'src/app/shared/types';
 import { InvoicesService, InvoiceItemsService, ProductsService } from 'src/app/core/services';
 import { ConfirmDeleteComponent } from 'src/app/shared/modals';
-
-import { IInvoice, IInvoiceItem, InvoiceItem } from './../../shared/types';
 import { ItemsCreateUpdateComponent } from './../../components';
-// TODO: IProduct
 
 
 @Component({
@@ -55,7 +53,7 @@ export class InvoiceItemsComponent implements OnInit {
           item.total = 'loading...';
           this.productsService
             .getById(item.product_id)
-            .subscribe((product: any) => {
+            .subscribe((product: IProduct) => {
               item.total = Number( (item.quantity * product.price).toFixed(2) );
             });
         });
@@ -134,7 +132,7 @@ export class InvoiceItemsComponent implements OnInit {
     await itemsList.forEach((item: IInvoiceItem) => {
       this.productsService
         .getById(item.product_id)
-        .subscribe((product: any) => {
+        .subscribe((product: IProduct) => {
           const itemPrice = item.quantity * product.price;
           this.totalPrice += itemPrice;
           console.log(`Product #${item.product_id} => ${itemPrice} $`);
@@ -144,7 +142,7 @@ export class InvoiceItemsComponent implements OnInit {
     // for (const item of itemsList) {
     //   await this.productsService
     //     .getById(item.product_id)
-    //     .subscribe((product: any) => {
+    //     .subscribe((product: IProduct) => {
     //       const itemPrice = item.quantity * product.price;
     //       this.totalPrice += itemPrice;
     //       console.log(`Product #${item.product_id} => ${itemPrice} $`);

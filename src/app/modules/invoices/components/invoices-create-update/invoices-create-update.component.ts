@@ -1,14 +1,11 @@
-import { ICustomer, Customer } from '../../../core/models';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { NgbActiveModal, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
-
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-
-import { CustomersService } from '../../../core/services';
-import { IInvoice } from '../../../core/models';
-
 import { Observable, Subject, merge, BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, filter } from 'rxjs/operators';
+
+import { IInvoice, ICustomer, Customer } from 'src/app/shared/types';
+import { CustomersService } from 'src/app/core/services';
 
 
 @Component({

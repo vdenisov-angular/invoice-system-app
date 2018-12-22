@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { ICustomer } from './../../shared/types';
+
+import { ICustomer } from 'src/app/shared/types';
 
 
 @Component({

@@ -2,10 +2,9 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 
+import { ICustomer, Customer } from 'src/app/shared/types';
 import { CustomersService } from 'src/app/core/services';
 import { ConfirmDeleteComponent } from 'src/app/shared/modals';
-
-import { ICustomer, Customer } from './../../shared/types';
 import { CustomersCreateUpdateComponent } from './../../components';
 
 

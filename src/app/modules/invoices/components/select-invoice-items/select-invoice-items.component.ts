@@ -1,9 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { IInvoice } from '../../../core/models';
+// import { IInvoiceItem } from 'src/app/shared/types';
 
 
 @Component({

@@ -1,12 +1,11 @@
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { NgbActiveModal, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-
-import { ProductsService } from '../../../core/services/products.service';
-import { IInvoiceItem, IProduct, Product } from '../../../core/models';
-
+import { NgbActiveModal, NgbTypeahead, NgbTypeaheadSelectItemEvent } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, Subject, merge, BehaviorSubject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, map, filter } from 'rxjs/operators';
+
+import { IInvoiceItem, IProduct, Product } from 'src/app/shared/types';
+import { ProductsService } from 'src/app/core/services';
 
 
 @Component({

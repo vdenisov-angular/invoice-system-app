@@ -3,10 +3,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 
+import { IInvoice, Invoice } from 'src/app/shared/types';
 import { InvoicesService } from 'src/app/core/services';
 import { ConfirmDeleteComponent } from 'src/app/shared/modals';
-
-import { IInvoice, Invoice } from './../../shared/types';
 import { InvoicesCreateUpdateComponent, SelectInvoiceItemsComponent } from './../../components';
 
 
