@@ -7,7 +7,7 @@ import { InvoicesService } from 'src/app/core/services';
 import { ConfirmDeleteComponent } from 'src/app/shared/modals';
 
 import { IInvoice, Invoice } from './../../shared/types';
-import { InvoicesCreateUpdateComponent, SelectInvoiceItemsComponent } from 'src/app/shared/modals';
+import { InvoicesCreateUpdateComponent, SelectInvoiceItemsComponent } from './../../components';
 
 
 @Component({

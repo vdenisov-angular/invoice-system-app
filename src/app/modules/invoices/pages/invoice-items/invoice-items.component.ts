@@ -7,7 +7,7 @@ import { InvoicesService, InvoiceItemsService, ProductsService } from 'src/app/c
 import { ConfirmDeleteComponent } from 'src/app/shared/modals';
 
 import { IInvoice, IInvoiceItem, InvoiceItem } from './../../shared/types';
-import { ItemsCreateUpdateComponent } from 'src/app/shared/modals';
+import { ItemsCreateUpdateComponent } from './../../components';
 // TODO: IProduct
 
 
