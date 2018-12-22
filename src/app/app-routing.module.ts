@@ -9,7 +9,7 @@ const appRoutes: Routes = [
 
   { path: 'customers',  loadChildren: './modules/customers/customers.module#CustomersModule' },
   { path: 'products',   loadChildren: './modules/products/products.module#ProductsModule' },
-  { path: 'invoices',   loadChildren: './invoices/invoices.module#InvoicesModule' },
+  { path: 'invoices',   loadChildren: './modules/invoices/invoices.module#InvoicesModule' },
 
   { path: '**', redirectTo: '' }
 ];

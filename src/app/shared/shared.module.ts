@@ -9,12 +9,6 @@ import {
 
 import {
   ConfirmDeleteComponent,
-
-  InvoicesCreateUpdateComponent,
-
-  SelectInvoiceItemsComponent,
-
-  ItemsCreateUpdateComponent,
 } from './modals';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -28,12 +22,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     HomeComponent,
 
     ConfirmDeleteComponent,
-
-    InvoicesCreateUpdateComponent,
-
-    SelectInvoiceItemsComponent,
-
-    ItemsCreateUpdateComponent,
   ],
   imports: [
     CommonModule,
@@ -47,12 +35,6 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
   ],
   entryComponents: [
     ConfirmDeleteComponent,
-
-    InvoicesCreateUpdateComponent,
-
-    SelectInvoiceItemsComponent,
-
-    ItemsCreateUpdateComponent,
   ],
   exports: [
     HomeComponent,

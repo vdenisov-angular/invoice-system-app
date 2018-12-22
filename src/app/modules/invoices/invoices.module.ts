@@ -4,8 +4,21 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { InvoicesComponent, InvoiceItemsComponent } from './pages';
-import { CustomerNamePipe, ProductNamePipe } from './shared/pipes';
+import {
+  InvoicesComponent,
+  InvoiceItemsComponent,
+} from './pages';
+
+import {
+  InvoicesCreateUpdateComponent,
+  ItemsCreateUpdateComponent,
+  SelectInvoiceItemsComponent,
+} from './components';
+
+import {
+  CustomerNamePipe,
+  ProductNamePipe
+} from './shared/pipes';
 
 
 const routes: Routes = [
@@ -24,8 +37,17 @@ const routes: Routes = [
     InvoicesComponent,
     InvoiceItemsComponent,
 
+    InvoicesCreateUpdateComponent,
+    ItemsCreateUpdateComponent,
+    SelectInvoiceItemsComponent,
+
     CustomerNamePipe,
     ProductNamePipe
-  ]
+  ],
+  entryComponents: [
+    InvoicesCreateUpdateComponent,
+    ItemsCreateUpdateComponent,
+    SelectInvoiceItemsComponent,
+  ],
 })
 export class InvoicesModule { }
