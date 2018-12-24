@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from './api.service';
 
+import { Subject, BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class InvoicesService {
+
+  public needToUpdate$ = new BehaviorSubject(true);
+
+  public needToReload$ = new BehaviorSubject(true);
 
   constructor(private apiService: ApiService) {}
 

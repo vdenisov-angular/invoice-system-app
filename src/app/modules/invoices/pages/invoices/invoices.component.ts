@@ -32,13 +32,7 @@ export class InvoicesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.invoiceService
-      .getAll()
-      .subscribe(invoicesList => {
-        this.invoices.next(invoicesList);
-        const arr = this.invoices.getValue();
-        this.loadingIndicator = false;
-      });
+    this.invoiceService.needToUpdate$.subscribe((signal) => this.getData());
 
     this.tableColumns = [
       { name: 'Customer', prop: 'customer_id', cellTemplate: this.nameTmpl },
@@ -46,6 +40,16 @@ export class InvoicesComponent implements OnInit {
       { name: 'Total $', prop: 'total' },
       { cellTemplate: this.actionTmpl }
     ];
+  }
+
+  public getData() {
+    this.invoiceService
+      .getAll()
+      .subscribe(invoicesList => {
+        this.invoices.next(invoicesList);
+        const arr = this.invoices.getValue();
+        this.loadingIndicator = false;
+      });
   }
 
   public onCreate() {

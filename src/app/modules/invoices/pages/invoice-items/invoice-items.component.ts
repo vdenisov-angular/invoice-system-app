@@ -16,8 +16,9 @@ import { ItemsCreateUpdateComponent } from './../../components';
 })
 export class InvoiceItemsComponent implements OnInit {
 
-  @ViewChild('actionTmpl') actionTmpl: TemplateRef<any>;
   @ViewChild('nameTmpl') nameTmpl: TemplateRef<any>;
+  @ViewChild('priceTmpl') priceTmpl: TemplateRef<any>;
+  @ViewChild('actionTmpl') actionTmpl: TemplateRef<any>;
 
   public invoiceId: number;
   public invoice: IInvoice;
@@ -25,7 +26,7 @@ export class InvoiceItemsComponent implements OnInit {
   public items = new BehaviorSubject<IInvoiceItem[]>([]);
   public tableColumns = [];
 
-  public loadingIndicator = true;
+  public loadingIndicator;
 
   public totalPrice = 0;
 
@@ -40,90 +41,112 @@ export class InvoiceItemsComponent implements OnInit {
 
   ngOnInit() {
     this.invoiceId = +this.route.snapshot.params['id'];
-    this.invoicesService
-      .getById(this.invoiceId)
-      .subscribe(data => {
-        this.invoice = data;
-        console.log('customer_id => ', this.invoice.customer_id)
-      });
-    this.invoiceItemsService
-      .getAll(this.invoiceId)
-      .subscribe((itemsList) => {
-        itemsList.map((item: IInvoiceItem) => {
-          item.total = 'loading...';
-          this.productsService
-            .getById(item.product_id)
-            .subscribe((product: IProduct) => {
-              item.total = Number( (item.quantity * product.price).toFixed(2) );
-            });
-        });
-        console.log('items list => ', itemsList)
-        this.items.next(itemsList);
-        this.loadingIndicator = false;
-      });
+
+    this.reloadInvoiceItems();
 
     this.tableColumns = [
-      { name: 'Product', prop: 'product_id', cellTemplate: this.nameTmpl },
+      { name: 'Product',           prop: 'product_id', cellTemplate: this.nameTmpl },
       { name: 'Quantity (pieces)', prop: 'quantity' },
-      { name: 'Price (total)', prop: 'total' },
+      { name: 'Price (total)',     prop: 'total',      cellTemplate: this.priceTmpl },
       { cellTemplate: this.actionTmpl }
     ];
   }
 
+  public async reloadInvoiceItems() {
+    this.loadingIndicator = true;
+
+    // update invoice for getting total
+    this.invoice = await this.invoicesService.getById(this.invoiceId).toPromise();
+    // update list of items
+    const itemsList = await this.invoiceItemsService.getAll(this.invoiceId).toPromise();
+
+    this.items.next(itemsList);
+    itemsList.map(async (item: IInvoiceItem) => {
+      const product = await this.productsService.getById(item.product_id).toPromise();
+      item.total = Number( (item.quantity * product.price).toFixed(2) );
+
+      console.log('item =>', item);
+    });
+    this.items.next(itemsList);
+
+    this.loadingIndicator = false;
+  }
+
   public onCreate() {
+
+    // open modal window
     const modalRef = this.modalService
-      .open(ItemsCreateUpdateComponent, { centered: true });
-
-    const inputData = {
-      action: 'create',
-      item: new InvoiceItem()
-    };
-
+    .open(ItemsCreateUpdateComponent, { centered: true });
+    const inputData = { action: 'create', item: new InvoiceItem() };
     Object.assign(modalRef.componentInstance, inputData);
 
-    modalRef.result
-      .then(newData => {
-        if (newData) {
-          newData.invoice_id = this.invoiceId;
-          this.invoiceItemsService
-            .create(this.invoiceId, newData)
-            .subscribe((createdItem: IInvoiceItem) => {
-              createdItem.total = Number( (newData.quantity * newData.price).toFixed(2) );
-              const arr = this.items.getValue();
-              arr.push(createdItem);
-              this.items.next([...arr]);
-            });
-        }
+    // subscribe to data from modal window
+    modalRef.result.then(newData => {
+
+      if (!newData) { return; }
+      newData.invoice_id = this.invoiceId;
+
+      this.invoiceItemsService
+      .create(this.invoiceId, newData)
+      .subscribe((createdItem: IInvoiceItem) => {
+
+        // update total for item
+        const itemTotal = Number( (newData.quantity * newData.price).toFixed(2) );
+        createdItem.total = itemTotal;
+
+        // add item to list
+        const arr = this.items.getValue();
+        arr.push(createdItem);
+        this.items.next([...arr]);
+
+        this.reloadInvoiceItems();
+
+
+        // update total for invoice
+        // this.invoice.total += itemTotal;
+        // // this.invoice.total = 0;
+        // this.invoicesService
+        // .updateById(this.invoice.id, this.invoice)
+        // .subscribe(data => console.log('data =>', data));
+
       });
+
+    });
+
   }
 
   public onEdit(item: IInvoiceItem) {
+
+    // open modal window
     const modalRef = this.modalService
-      .open(ItemsCreateUpdateComponent, { centered: true });
-
-    const inputData = {
-      action: 'edit',
-      item
-    };
-
+    .open(ItemsCreateUpdateComponent, { centered: true });
+    const inputData = { action: 'edit', item };
     Object.assign(modalRef.componentInstance, inputData);
 
-    modalRef.result
-      .then((newData) => {
-        if (newData) {
-          newData.invoice_id = this.invoiceId;
-          this.invoiceItemsService
-            .updateById(this.invoiceId, item.id, newData)
-            .subscribe((updatedItem: IInvoiceItem) => {
-              updatedItem.total = Number( (newData.quantity * newData.price).toFixed(2) );
-              const arr = this.items.getValue();
-              const index = arr.indexOf(item);
-              arr.splice(index, 1, updatedItem);
-              this.items.next([...arr]);
+    // subscribe to data from modal window
+    modalRef.result.then((newData) => {
 
-              this.calculateInvoicePrice();
-            })
-        }
+      if (!newData) { return; }
+      newData.invoice_id = this.invoiceId;
+
+      this.invoiceItemsService
+      .updateById(this.invoiceId, item.id, newData)
+      .subscribe((updatedItem: IInvoiceItem) => {
+
+        // update total for item
+        const itemTotal = Number( (newData.quantity * newData.price).toFixed(2) );
+        updatedItem.total = itemTotal;
+
+        // set item in list
+        const arr = this.items.getValue();
+        const index = arr.indexOf(item);
+        arr.splice(index, 1, updatedItem);
+        this.items.next([...arr]);
+
+
+
+      })
+
       });
   }
 
