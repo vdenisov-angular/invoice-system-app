@@ -10,10 +10,8 @@ import { ItemsCreateUpdateComponent } from './../../components';
 
 
 interface ICustomInvItem {
-  data: {
-    item: IInvoiceItem,
-    product: IProduct,
-  }
+  item: IInvoiceItem,
+  product: IProduct,
 }
 
 @Component({
@@ -71,18 +69,18 @@ export class InvoiceItemsComponent implements OnInit {
     this.customTableColumns = [
       { // product.name
         name: 'Product',
-        prop: 'data.product.name',
+        prop: 'product.name',
       },
       { // item.quantity
         name: 'Quantity',
-        prop: 'data.item.quantity',
+        prop: 'item.quantity',
       },
       { // x
         cellTemplate: this.multipleTmpl,
       },
       { // product.price
         name: 'Price (per item)',
-        prop: 'data.product.price',
+        prop: 'product.price',
         cellTemplate: this.customItemPriceTmpl,
       },
       { // =
@@ -90,7 +88,6 @@ export class InvoiceItemsComponent implements OnInit {
       },
       { // item.total
         name: 'Price (total)',
-        prop: 'data',
         cellTemplate: this.customTotalPriceTmpl,
       },
       { // buttons edit/delete
@@ -121,10 +118,8 @@ export class InvoiceItemsComponent implements OnInit {
       .getById(itemEl.product_id).toPromise();
 
       const customInvEl: ICustomInvItem = {
-        data: {
-          item: itemEl,
-          product: productEl,
-        }
+        item: itemEl,
+        product: productEl,
       };
 
       this.customInvArray.push(customInvEl);

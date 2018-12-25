@@ -45,7 +45,7 @@
 
 <ng-template #customTotalPriceTmpl let-row="row" let-value="value">
   <span>
-    {{ (value.item.quantity * value.product.price) | currency }}
+    {{ (row.item.quantity * row.product.price) | currency }}
   </span>
 </ng-template>
 
