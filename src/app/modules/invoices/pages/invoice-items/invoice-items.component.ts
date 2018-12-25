@@ -21,11 +21,6 @@ interface ICustomInvItem {
 })
 export class InvoiceItemsComponent implements OnInit {
 
-
-  @ViewChild('nameTmpl') nameTmpl: TemplateRef<any>;
-  @ViewChild('priceTmpl') priceTmpl: TemplateRef<any>;
-  @ViewChild('actionTmpl') actionTmpl: TemplateRef<any>;
-
   @ViewChild('customTotalPriceTmpl') customTotalPriceTmpl: TemplateRef<any>;
   @ViewChild('customItemPriceTmpl') customItemPriceTmpl: TemplateRef<any>;
   @ViewChild('customActionTmpl') customActionTmpl: TemplateRef<any>;
@@ -34,9 +29,6 @@ export class InvoiceItemsComponent implements OnInit {
 
   public invoiceId: number;
   public invoice: IInvoice;
-
-  public items = new BehaviorSubject<IInvoiceItem[]>([]);
-  public tableColumns = [];
 
   public customInvArray: ICustomInvItem[] = [];
   public customInvArray$ = new BehaviorSubject<ICustomInvItem[]>([]);
@@ -58,13 +50,6 @@ export class InvoiceItemsComponent implements OnInit {
 
   ngOnInit() {
     this.invoiceId = +this.route.snapshot.params['id'];
-
-    this.tableColumns = [
-      { name: 'Product',           prop: 'product_id', cellTemplate: this.nameTmpl },
-      { name: 'Quantity (pieces)', prop: 'quantity' },
-      { name: 'Price (total)',     prop: 'total',       cellTemplate: this.priceTmpl },
-      { cellTemplate: this.actionTmpl }
-    ];
 
     this.customTableColumns = [
       { // product.name
@@ -108,8 +93,6 @@ export class InvoiceItemsComponent implements OnInit {
     // update list of items
     const itemsList: IInvoiceItem[] = await this.invoiceItemsService
     .getAll(this.invoiceId).toPromise();
-    // push items data to table
-    this.items.next(itemsList);
 
     for (let i = 0; i < itemsList.length; i += 1) {
       const itemEl: IInvoiceItem = itemsList[i];
@@ -125,23 +108,8 @@ export class InvoiceItemsComponent implements OnInit {
       this.customInvArray.push(customInvEl);
     }
 
+    // push items data to table
     this.customInvArray$.next(this.customInvArray);
-
-    console.log('this.customInvArray$ =>', this.customInvArray$.getValue());
-
-    // await itemsList.forEach(async (itemEl: IInvoiceItem) => {
-    //   const productEl: IProduct = await this.productsService
-    //   .getById(itemEl.product_id).toPromise();
-
-    //   const customItem: ICustomInvItem = {
-    //     item: itemEl,
-    //     product: productEl
-    //   };
-
-    //   this.customInvArray.push(customItem);
-    // });
-
-    // console.log('customInvArray =>', customInvArray);
 
     this.loadingIndicator = false;
   }
@@ -170,9 +138,9 @@ export class InvoiceItemsComponent implements OnInit {
         createdItem.total = itemTotal;
 
         // add item to list
-        const arr = this.items.getValue();
-        arr.push(createdItem);
-        this.items.next([...arr]);
+        // const arr = this.items.getValue();
+        // arr.push(createdItem);
+        // this.items.next([...arr]);
 
         // this.reloadInvoiceItems();
 
@@ -213,10 +181,10 @@ export class InvoiceItemsComponent implements OnInit {
         updatedItem.total = itemTotal;
 
         // set item in list
-        const arr = this.items.getValue();
-        const index = arr.indexOf(item);
-        arr.splice(index, 1, updatedItem);
-        this.items.next([...arr]);
+        // const arr = this.items.getValue();
+        // const index = arr.indexOf(item);
+        // arr.splice(index, 1, updatedItem);
+        // this.items.next([...arr]);
 
 
 
@@ -226,16 +194,16 @@ export class InvoiceItemsComponent implements OnInit {
   }
 
   public async calculateInvoicePrice() {
-    const itemsList: IInvoiceItem[] = this.items.getValue();
-    await itemsList.forEach((item: IInvoiceItem) => {
-      this.productsService
-        .getById(item.product_id)
-        .subscribe((product: IProduct) => {
-          const itemPrice = item.quantity * product.price;
-          this.totalPrice += itemPrice;
-          console.log(`Product #${item.product_id} => ${itemPrice} $`);
-        });
-    });
+    // const itemsList: IInvoiceItem[] = this.items.getValue();
+    // await itemsList.forEach((item: IInvoiceItem) => {
+    //   this.productsService
+    //     .getById(item.product_id)
+    //     .subscribe((product: IProduct) => {
+    //       const itemPrice = item.quantity * product.price;
+    //       this.totalPrice += itemPrice;
+    //       console.log(`Product #${item.product_id} => ${itemPrice} $`);
+    //     });
+    // });
     console.log('total => ', this.totalPrice);
     // for (const item of itemsList) {
     //   await this.productsService
@@ -264,8 +232,8 @@ export class InvoiceItemsComponent implements OnInit {
           this.invoiceItemsService
             .deleteById(this.invoiceId, item.id)
             .subscribe((data) => {
-              const arr = this.items.getValue().filter(el => el.id !== item.id);
-              this.items.next([...arr]);
+              // const arr = this.items.getValue().filter(el => el.id !== item.id);
+              // this.items.next([...arr]);
             });
         }
       });

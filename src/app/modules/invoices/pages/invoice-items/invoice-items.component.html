@@ -79,9 +79,6 @@
   <span>=</span>
 </ng-template>
 
-
-
-
 <div class="info">
   Total: 
   <span *ngIf="invoice; else loadingTotal">
@@ -91,63 +88,3 @@
     loading...
   </ng-template>
 </div>
-
-
-<div style="height: 20px; margin: 20px; background-color: red;"></div>
-
-<ngx-datatable
-  class="material"
-
-  [loadingIndicator]="loadingIndicator"
- 
-  [columns]="tableColumns"
-  [rows]="items | async"
-  
-  [columnMode]="'force'"
-
-  [headerHeight]="50"
-  [rowHeight]="70"
-  [footerHeight]="50"
-></ngx-datatable>
-
-<!-- <div class="info">
-  Total: 
-  <span *ngIf="invoice; else loadingTotal">
-    {{ invoice.total | currency }}
-  </span>
-  <ng-template #loadingTotal>
-    loading...
-  </ng-template>
-</div> -->
-
-<!-- TEMPLATES -->
-
-<ng-template #nameTmpl let-row="row" let-value="value">
-  {{ (value | productName | async)?.name }}
-</ng-template>
-
-<ng-template #priceTmpl let-row="row" let-value="value">
-  <span *ngIf="value !== undefined; else loadingPrice">
-    {{ value }}
-  </span>
-
-  <ng-template #loadingPrice>
-    loading...
-  </ng-template>
-</ng-template>
-
-<ng-template #actionTmpl let-row="row" let-value="value">
-  <!-- TODO : убрать кнопки, оставить только иконки -->
-
-  <div class="d-flex justify-content-around">
-
-    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onEdit(row)">
-      <i class="fa fa-pencil-alt"></i>
-    </button>
-
-    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onDelete(row)">
-      <i class="fa fa-trash-alt"></i>
-    </button>
-
-  </div>
-</ng-template>
