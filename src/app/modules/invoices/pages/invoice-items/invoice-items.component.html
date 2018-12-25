@@ -59,12 +59,12 @@
   <div class="d-flex justify-content-around">
 
     <button class="btn btn-outline-info btn-rounded waves-effect px-3"
-    (click)="printClick('EDIT', row)">
+    (click)="onEdit(row)">
       <i class="fa fa-pencil-alt"></i>
     </button>
 
     <button class="btn btn-outline-info btn-rounded waves-effect px-3"
-    (click)="printClick('DELETE', row)">
+    (click)="onDelete(row)">
       <i class="fa fa-trash-alt"></i>
     </button>
 
@@ -80,7 +80,7 @@
 </ng-template>
 
 <div class="info">
-  Total: 
+  Total for invoice: 
   <span *ngIf="invoice; else loadingTotal">
     {{ invoice.total | currency }}
   </span>

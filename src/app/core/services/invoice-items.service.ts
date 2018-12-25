@@ -17,16 +17,16 @@ export class InvoiceItemsService {
     return this.apiService.get(`invoices/${invoiceId}/items`);
   }
 
-  public getById(invoiceId, id) {
-    return this.apiService.get(`invoices/${invoiceId}/items/${id}`);
+  public getById(invoiceId, itemId) {
+    return this.apiService.get(`invoices/${invoiceId}/items/${itemId}`);
   }
 
-  public updateById(invoiceId, id, data) {
-    return this.apiService.put(`invoices/${invoiceId}/items/${id}`, data);
+  public updateById(invoiceId, itemId, data) {
+    return this.apiService.put(`invoices/${invoiceId}/items/${itemId}`, data);
   }
 
-  public deleteById(invoiceId, id) {
-    return this.apiService.delete(`invoices/${invoiceId}/items/${id}`);
+  public deleteById(invoiceId, itemId) {
+    return this.apiService.delete(`invoices/${invoiceId}/items/${itemId}`);
   }
 
 }

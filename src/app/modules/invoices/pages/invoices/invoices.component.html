@@ -21,15 +21,18 @@
 ></ngx-datatable>
 
 <ng-template #nameTmpl let-row="row" let-value="value">
+  <span>
+    {{ (value | customerName | async)?.name }}
+  </span>
+</ng-template>
 
-  {{ (value | customerName | async)?.name }}
-
+<ng-template #priceTmpl let-row="row" let-value="value">
+  <span>
+    {{ value | currency }}
+  </span>
 </ng-template>
 
 <ng-template #actionTmpl let-row="row" let-value="value">
-
-  <!-- TODO : убрать кнопки, оставить только иконки -->
-
   <div class="d-flex justify-content-around">
 
     <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="showItemsForInvoice(row)">
@@ -40,6 +43,5 @@
       <i class="fa fa-trash-alt"></i>
     </button>
 
-  </div>
-
+<!--  -->  </div>
 </ng-template>

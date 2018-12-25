@@ -22,20 +22,19 @@ interface ICustomInvItem {
 })
 export class InvoiceItemsComponent implements OnInit {
 
+
   @ViewChild('customTotalPriceTmpl') customTotalPriceTmpl: TemplateRef<any>;
   @ViewChild('customItemPriceTmpl') customItemPriceTmpl: TemplateRef<any>;
   @ViewChild('customActionTmpl') customActionTmpl: TemplateRef<any>;
   @ViewChild('multipleTmpl') multipleTmpl: TemplateRef<any>;
   @ViewChild('equalityTmpl') equalityTmpl: TemplateRef<any>;
 
+
   public invoiceId: number;
   public invoice: IInvoice;
-
-  public customInvArray$ = new BehaviorSubject<ICustomInvItem[]>([]);
-  public customTableColumns = [];
-
   public loadingIndicator;
-  public totalPrice = 0;
+  public customTableColumns = [];
+  public customInvArray$ = new BehaviorSubject<ICustomInvItem[]>([]);
 
 
   constructor(
@@ -118,8 +117,7 @@ export class InvoiceItemsComponent implements OnInit {
   }
 
 
-  public onCreate() {
-
+  public async onCreate() {
     // open modal window
     const modalRef = this.modalService
     .open(ItemsCreateUpdateComponent, { centered: true });
@@ -129,136 +127,124 @@ export class InvoiceItemsComponent implements OnInit {
     // subscribe to data from modal window
     // get "product_id" and "quantity" from modal
     modalRef.result.then((dataFromModal) => {
-
       if (!dataFromModal) { return; }
-      // set invoice.id
 
+      // set invoice.id
       const newInvoiceItem = {
         invoice_id: this.invoiceId,
         product_id: dataFromModal.product.id,
-        quantity: dataFromModal.quantity
-      }
+        quantity: dataFromModal.quantity,
+      };
 
       this.invoiceItemsService
       .create(this.invoiceId, newInvoiceItem)
       .subscribe((createdItem: IInvoiceItem) => {
 
+        // udpate table {
         const arrInvs: ICustomInvItem[] = this.customInvArray$.getValue();
-
+        const lastElement = arrInvs.slice(-1)[0];
         const customInvEl: ICustomInvItem = {
           // icrease id
-          _id: arrInvs.slice(-1)[0]._id + 1 || 1,
+          _id: lastElement ? (lastElement._id + 1) : 1,
           item: createdItem,
           product: dataFromModal.product,
         };
-
         arrInvs.push(customInvEl);
         this.customInvArray$.next([...arrInvs]);
+        // } update table
+
+        // update main total {
+        const additionForTotal = customInvEl.item.quantity * customInvEl.product.price;
+        this.invoice.total += additionForTotal;
+        this.invoicesService
+        .updateById(this.invoiceId, this.invoice)
+        .subscribe((data) => console.log('CREATE => data', data));
+        // } update main total
 
       });
-
     });
-
   }
 
-          // add item to list
-        // const arr = this.items.getValue();
-        // arr.push(createdItem);
-        // this.items.next([...arr]);
 
-        // this.reloadInvoiceItems();
-
-
-        // update total for invoice
-        // this.invoice.total += itemTotal;
-        // // this.invoice.total = 0;
-        // this.invoicesService
-        // .updateById(this.invoice.id, this.invoice)
-        // .subscribe(data => console.log('data =>', data));
-
-  public onEdit(item: IInvoiceItem) {
-
+  public onEdit(selectedInvItem: ICustomInvItem) {
     // open modal window
     const modalRef = this.modalService
     .open(ItemsCreateUpdateComponent, { centered: true });
-    const inputData = { action: 'edit', item };
+    const inputData = { action: 'edit', item: selectedInvItem.item };
     Object.assign(modalRef.componentInstance, inputData);
 
     // subscribe to data from modal window
-    modalRef.result.then((newData) => {
+    // get "product_id" and "quantity" from modal
+    modalRef.result.then((dataFromModal) => {
+      if (!dataFromModal) { return; }
 
-      if (!newData) { return; }
-      newData.invoice_id = this.invoiceId;
+      // set invoice.id
+      const newInvoiceItem = {
+        invoice_id: this.invoiceId,
+        product_id: dataFromModal.product.id,
+        quantity: dataFromModal.quantity,
+      };
 
       this.invoiceItemsService
-      .updateById(this.invoiceId, item.id, newData)
+      .updateById(this.invoiceId, selectedInvItem.item.id, newInvoiceItem)
       .subscribe((updatedItem: IInvoiceItem) => {
 
-        // update total for item
-        const itemTotal = Number( (newData.quantity * newData.price).toFixed(2) );
-        updatedItem.total = itemTotal;
+        // udpate table {
+        const arrInvs: ICustomInvItem[] = this.customInvArray$.getValue();
+        const customInvEl: ICustomInvItem = {
+          _id: selectedInvItem._id,
+          item: updatedItem,
+          product: dataFromModal.product,
+        };
+        const index = arrInvs.indexOf(selectedInvItem);
+        arrInvs.splice(index, 1, customInvEl);
+        this.customInvArray$.next([...arrInvs]);
+        // } udpate table
 
-        // set item in list
-        // const arr = this.items.getValue();
-        // const index = arr.indexOf(item);
-        // arr.splice(index, 1, updatedItem);
-        // this.items.next([...arr]);
+        // update main total {
+        const changesForQuantity = updatedItem.quantity - selectedInvItem.item.quantity;
+        const changesForTotal = changesForQuantity * selectedInvItem.product.price;
+        this.invoice.total += changesForTotal;
+        this.invoicesService
+        .updateById(this.invoiceId, this.invoice)
+        .subscribe((data) => console.log('EDIT => data', data));
+        // } update main total
 
-
-
-      })
 
       });
-  }
-
-  public async calculateInvoicePrice() {
-    // const itemsList: IInvoiceItem[] = this.items.getValue();
-    // await itemsList.forEach((item: IInvoiceItem) => {
-    //   this.productsService
-    //     .getById(item.product_id)
-    //     .subscribe((product: IProduct) => {
-    //       const itemPrice = item.quantity * product.price;
-    //       this.totalPrice += itemPrice;
-    //       console.log(`Product #${item.product_id} => ${itemPrice} $`);
-    //     });
-    // });
-    console.log('total => ', this.totalPrice);
-    // for (const item of itemsList) {
-    //   await this.productsService
-    //     .getById(item.product_id)
-    //     .subscribe((product: IProduct) => {
-    //       const itemPrice = item.quantity * product.price;
-    //       this.totalPrice += itemPrice;
-    //       console.log(`Product #${item.product_id} => ${itemPrice} $`);
-    //       console.log('total #1 => ', this.totalPrice);
-    //     })
-    //   console.log('total #2 => ', this.totalPrice);
-    // }
-    // console.log('total #3 => ', this.totalPrice);
+    });
   }
 
 
-  public onDelete(item: IInvoiceItem) {
+  public onDelete(selectedInvItem: ICustomInvItem) {
     const modalRef = this.modalService
       .open(ConfirmDeleteComponent, { centered: true });
-
     modalRef.componentInstance.name = 'this item';
 
-    modalRef.result
-      .then((confirmation) => {
-        if (confirmation) {
-          this.invoiceItemsService
-            .deleteById(this.invoiceId, item.id)
-            .subscribe((data) => {
-              // const arr = this.items.getValue().filter(el => el.id !== item.id);
-              // this.items.next([...arr]);
-            });
-        }
+    modalRef.result.then((confirmation) => {
+      if (!confirmation) { return; }
+
+      this.invoiceItemsService
+      .deleteById(this.invoiceId, selectedInvItem.item.id)
+      .subscribe((data) => {
+
+        // udpate table {
+        let arrInvs: ICustomInvItem[] = this.customInvArray$.getValue();
+        arrInvs = arrInvs.filter((invEl: ICustomInvItem) => invEl._id !== selectedInvItem._id);
+        this.customInvArray$.next(arrInvs);
+        // } udpate table
+
+        // update main total {
+        const subtractionForTotal = selectedInvItem.item.quantity * selectedInvItem.product.price;
+        this.invoice.total -= subtractionForTotal;
+        this.invoicesService
+        .updateById(this.invoiceId, this.invoice)
+        .subscribe((data) => console.log('DELETE => info', data));
+        // } update main total
+
       });
+    });
   }
 
-  printClick(action: string, data: any) {
-    console.log(`printClick => ${action}\n`, data);
-  }
 
 }

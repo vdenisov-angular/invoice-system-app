@@ -16,14 +16,17 @@ import { InvoicesCreateUpdateComponent, SelectInvoiceItemsComponent } from './..
 })
 export class InvoicesComponent implements OnInit {
 
-  @ViewChild('actionTmpl') actionTmpl: TemplateRef<any>;
+
   @ViewChild('nameTmpl') nameTmpl: TemplateRef<any>;
+  @ViewChild('priceTmpl') priceTmpl: TemplateRef<any>;
+  @ViewChild('actionTmpl') actionTmpl: TemplateRef<any>;
+
 
   public buf: Array<any> = [];
-
   public invoices = new BehaviorSubject<IInvoice[]>([]);
   public tableColumns = [];
   public loadingIndicator = true;
+
 
   constructor(
     private invoiceService: InvoicesService,
@@ -31,16 +34,18 @@ export class InvoicesComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
-    this.invoiceService.needToUpdate$.subscribe((signal) => this.getData());
 
+  ngOnInit() {
     this.tableColumns = [
-      { name: 'Customer', prop: 'customer_id', cellTemplate: this.nameTmpl },
+      { name: 'Customer',   prop: 'customer_id', cellTemplate: this.nameTmpl },
       { name: 'Discount %', prop: 'discount' },
-      { name: 'Total $', prop: 'total' },
+      { name: 'Total $',    prop: 'total',       cellTemplate: this.priceTmpl },
       { cellTemplate: this.actionTmpl }
     ];
+
+    this.getData();
   }
+
 
   public getData() {
     this.invoiceService
