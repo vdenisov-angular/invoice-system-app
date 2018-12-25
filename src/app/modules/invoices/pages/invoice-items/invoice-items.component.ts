@@ -88,10 +88,13 @@ export class InvoiceItemsComponent implements OnInit {
 
     // update invoice for getting total
     this.invoice = await this.invoicesService
-    .getById(this.invoiceId).toPromise();
+    .getById(this.invoiceId)
+    .toPromise();
+
     // update list of items
     const itemsList: IInvoiceItem[] = await this.invoiceItemsService
-    .getAll(this.invoiceId).toPromise();
+    .getAll(this.invoiceId)
+    .toPromise();
 
     const arrInvs: ICustomInvItem[] = [];
 
@@ -99,7 +102,8 @@ export class InvoiceItemsComponent implements OnInit {
       const itemEl: IInvoiceItem = itemsList[i];
 
       const productEl: IProduct = await this.productsService
-      .getById(itemEl.product_id).toPromise();
+      .getById(itemEl.product_id)
+      .toPromise();
 
       const customInvEl: ICustomInvItem = {
         _id: i + 1,
@@ -118,132 +122,142 @@ export class InvoiceItemsComponent implements OnInit {
 
 
   public async onCreate() {
-    // open modal window
+
+    // Step 1: Open modal window and get data
+
     const modalRef = this.modalService
     .open(ItemsCreateUpdateComponent, { centered: true });
+
     const inputData = { action: 'create', item: new InvoiceItem() };
     Object.assign(modalRef.componentInstance, inputData);
 
-    // subscribe to data from modal window
-    // get "product_id" and "quantity" from modal
-    modalRef.result.then((dataFromModal) => {
-      if (!dataFromModal) { return; }
+    const dataFromModal = await modalRef.result;
+    if (!dataFromModal) { return; }
 
-      // set invoice.id
-      const newInvoiceItem = {
-        invoice_id: this.invoiceId,
-        product_id: dataFromModal.product.id,
-        quantity: dataFromModal.quantity,
-      };
+    // Step 2: Add new invoice item to database
 
-      this.invoiceItemsService
-      .create(this.invoiceId, newInvoiceItem)
-      .subscribe((createdItem: IInvoiceItem) => {
+    const newInvoiceItem = {
+      invoice_id: this.invoiceId,
+      product_id: dataFromModal.product.id,
+      quantity: dataFromModal.quantity,
+    };
 
-        // udpate table {
-        const arrInvs: ICustomInvItem[] = this.customInvArray$.getValue();
-        const lastElement = arrInvs.slice(-1)[0];
-        const customInvEl: ICustomInvItem = {
-          // icrease id
-          _id: lastElement ? (lastElement._id + 1) : 1,
-          item: createdItem,
-          product: dataFromModal.product,
-        };
-        arrInvs.push(customInvEl);
-        this.customInvArray$.next([...arrInvs]);
-        // } update table
+    const createdItem: IInvoiceItem = await this.invoiceItemsService
+    .create(this.invoiceId, newInvoiceItem)
+    .toPromise();
 
-        // update main total {
-        const additionForTotal = customInvEl.item.quantity * customInvEl.product.price;
-        this.invoice.total += additionForTotal;
-        this.invoicesService
-        .updateById(this.invoiceId, this.invoice)
-        .subscribe((data) => console.log('CREATE => data', data));
-        // } update main total
+    // Step 3: Add new invoice item to table
 
-      });
-    });
+    const arrInvs: ICustomInvItem[] = this.customInvArray$.getValue();
+    const lastElement = arrInvs.slice(-1)[0];
+
+    const customInvEl: ICustomInvItem = {
+      _id: lastElement ? (lastElement._id + 1) : 1,
+      item: createdItem,
+      product: dataFromModal.product,
+    };
+    arrInvs.push(customInvEl);
+
+    this.customInvArray$.next([...arrInvs]);
+
+    // Step 4: Update total for invoice
+
+    const additionForTotal = customInvEl.item.quantity * customInvEl.product.price;
+    this.invoice.total += additionForTotal;
+
+    await this.invoicesService
+    .updateById(this.invoiceId, this.invoice)
+    .toPromise();
+
   }
 
 
-  public onEdit(selectedInvItem: ICustomInvItem) {
-    // open modal window
+  public async onEdit(selectedInvItem: ICustomInvItem) {
+
+    // Step 1: Open modal window ang get data
+
     const modalRef = this.modalService
     .open(ItemsCreateUpdateComponent, { centered: true });
+
     const inputData = { action: 'edit', item: selectedInvItem.item };
     Object.assign(modalRef.componentInstance, inputData);
 
-    // subscribe to data from modal window
-    // get "product_id" and "quantity" from modal
-    modalRef.result.then((dataFromModal) => {
-      if (!dataFromModal) { return; }
+    const dataFromModal = await modalRef.result;
+    if (!dataFromModal) { return; }
 
-      // set invoice.id
-      const newInvoiceItem = {
-        invoice_id: this.invoiceId,
-        product_id: dataFromModal.product.id,
-        quantity: dataFromModal.quantity,
-      };
+    // Step 2: Update selected invoice item in database
 
-      this.invoiceItemsService
-      .updateById(this.invoiceId, selectedInvItem.item.id, newInvoiceItem)
-      .subscribe((updatedItem: IInvoiceItem) => {
+    const newInvoiceItem = {
+      invoice_id: this.invoiceId,
+      product_id: dataFromModal.product.id,
+      quantity: dataFromModal.quantity,
+    };
 
-        // udpate table {
-        const arrInvs: ICustomInvItem[] = this.customInvArray$.getValue();
-        const customInvEl: ICustomInvItem = {
-          _id: selectedInvItem._id,
-          item: updatedItem,
-          product: dataFromModal.product,
-        };
-        const index = arrInvs.indexOf(selectedInvItem);
-        arrInvs.splice(index, 1, customInvEl);
-        this.customInvArray$.next([...arrInvs]);
-        // } udpate table
+    const updatedItem: IInvoiceItem = await this.invoiceItemsService
+    .updateById(this.invoiceId, selectedInvItem.item.id, newInvoiceItem)
+    .toPromise();
 
-        // update main total {
-        const changesForQuantity = updatedItem.quantity - selectedInvItem.item.quantity;
-        const changesForTotal = changesForQuantity * selectedInvItem.product.price;
-        this.invoice.total += changesForTotal;
-        this.invoicesService
-        .updateById(this.invoiceId, this.invoice)
-        .subscribe((data) => console.log('EDIT => data', data));
-        // } update main total
+    // Step 3: Replace updated invoice item in table
 
+    const arrInvs: ICustomInvItem[] = this.customInvArray$.getValue();
+    const customInvEl: ICustomInvItem = {
+      _id: selectedInvItem._id,
+      item: updatedItem,
+      product: dataFromModal.product,
+    };
 
-      });
-    });
+    const index = arrInvs.indexOf(selectedInvItem);
+    arrInvs.splice(index, 1, customInvEl);
+
+    this.customInvArray$.next([...arrInvs]);
+
+    // Step 4: Update total for invoice
+
+    const changesForQuantity = updatedItem.quantity - selectedInvItem.item.quantity;
+    const changesForTotal = changesForQuantity * selectedInvItem.product.price;
+    this.invoice.total += changesForTotal;
+
+    await this.invoicesService
+    .updateById(this.invoiceId, this.invoice)
+    .toPromise();
+
   }
 
 
-  public onDelete(selectedInvItem: ICustomInvItem) {
-    const modalRef = this.modalService
-      .open(ConfirmDeleteComponent, { centered: true });
+  public async onDelete(selectedInvItem: ICustomInvItem) {
+
+    // Step 1: Open modal window and get data
+
+    const modalRef = await this.modalService
+    .open(ConfirmDeleteComponent, { centered: true });
+
     modalRef.componentInstance.name = 'this item';
 
-    modalRef.result.then((confirmation) => {
-      if (!confirmation) { return; }
+    const dataFromModal = await modalRef.result;
+    if (!dataFromModal) { return; }
 
-      this.invoiceItemsService
-      .deleteById(this.invoiceId, selectedInvItem.item.id)
-      .subscribe((data) => {
+    // Step 2: Delete selected invoice item from database
 
-        // udpate table {
-        let arrInvs: ICustomInvItem[] = this.customInvArray$.getValue();
-        arrInvs = arrInvs.filter((invEl: ICustomInvItem) => invEl._id !== selectedInvItem._id);
-        this.customInvArray$.next(arrInvs);
-        // } udpate table
+    await this.invoiceItemsService
+    .deleteById(this.invoiceId, selectedInvItem.item.id)
+    .toPromise();
 
-        // update main total {
-        const subtractionForTotal = selectedInvItem.item.quantity * selectedInvItem.product.price;
-        this.invoice.total -= subtractionForTotal;
-        this.invoicesService
-        .updateById(this.invoiceId, this.invoice)
-        .subscribe((data) => console.log('DELETE => info', data));
-        // } update main total
+    // Step 3: Delete selected invoice item from table
 
-      });
-    });
+    let arrInvs: ICustomInvItem[] = this.customInvArray$.getValue();
+    arrInvs = arrInvs.filter((invEl: ICustomInvItem) => invEl._id !== selectedInvItem._id);
+
+    this.customInvArray$.next(arrInvs);
+
+    // Step 4: Update total for invoice
+
+    const subtractionForTotal = selectedInvItem.item.quantity * selectedInvItem.product.price;
+    this.invoice.total -= subtractionForTotal;
+
+    await this.invoicesService
+    .updateById(this.invoiceId, this.invoice)
+    .toPromise();
+
   }
 
 
