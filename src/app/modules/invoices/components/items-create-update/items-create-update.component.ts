@@ -108,9 +108,10 @@ export class ItemsCreateUpdateComponent implements OnInit {
     const selectedProduct = this.currentProduct.getValue();
 
     const updatedInfo = {
-      product_id: selectedProduct.id || -1,
+      // product_id: selectedProduct.id || -1,
+      product: selectedProduct,
       quantity: parseInt(userInput.quantity, 10) || this.item.quantity,
-      price: selectedProduct.price
+      // price: selectedProduct.price
     };
 
     this.activeModal.close(updatedInfo);

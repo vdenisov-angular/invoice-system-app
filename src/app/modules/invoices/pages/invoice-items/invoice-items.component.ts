@@ -10,6 +10,7 @@ import { ItemsCreateUpdateComponent } from './../../components';
 
 
 interface ICustomInvItem {
+  _id: number,
   item: IInvoiceItem,
   product: IProduct,
 }
@@ -30,7 +31,6 @@ export class InvoiceItemsComponent implements OnInit {
   public invoiceId: number;
   public invoice: IInvoice;
 
-  public customInvArray: ICustomInvItem[] = [];
   public customInvArray$ = new BehaviorSubject<ICustomInvItem[]>([]);
   public customTableColumns = [];
 
@@ -94,6 +94,8 @@ export class InvoiceItemsComponent implements OnInit {
     const itemsList: IInvoiceItem[] = await this.invoiceItemsService
     .getAll(this.invoiceId).toPromise();
 
+    const arrInvs: ICustomInvItem[] = [];
+
     for (let i = 0; i < itemsList.length; i += 1) {
       const itemEl: IInvoiceItem = itemsList[i];
 
@@ -101,15 +103,16 @@ export class InvoiceItemsComponent implements OnInit {
       .getById(itemEl.product_id).toPromise();
 
       const customInvEl: ICustomInvItem = {
+        _id: i + 1,
         item: itemEl,
         product: productEl,
       };
 
-      this.customInvArray.push(customInvEl);
+      arrInvs.push(customInvEl);
     }
 
     // push items data to table
-    this.customInvArray$.next(this.customInvArray);
+    this.customInvArray$.next(arrInvs);
 
     this.loadingIndicator = false;
   }
@@ -124,20 +127,41 @@ export class InvoiceItemsComponent implements OnInit {
     Object.assign(modalRef.componentInstance, inputData);
 
     // subscribe to data from modal window
-    modalRef.result.then(newData => {
+    // get "product_id" and "quantity" from modal
+    modalRef.result.then((dataFromModal) => {
 
-      if (!newData) { return; }
-      newData.invoice_id = this.invoiceId;
+      if (!dataFromModal) { return; }
+      // set invoice.id
+
+      const newInvoiceItem = {
+        invoice_id: this.invoiceId,
+        product_id: dataFromModal.product.id,
+        quantity: dataFromModal.quantity
+      }
 
       this.invoiceItemsService
-      .create(this.invoiceId, newData)
+      .create(this.invoiceId, newInvoiceItem)
       .subscribe((createdItem: IInvoiceItem) => {
 
-        // update total for item
-        const itemTotal = Number( (newData.quantity * newData.price).toFixed(2) );
-        createdItem.total = itemTotal;
+        const arrInvs: ICustomInvItem[] = this.customInvArray$.getValue();
 
-        // add item to list
+        const customInvEl: ICustomInvItem = {
+          // icrease id
+          _id: arrInvs.slice(-1)[0]._id + 1 || 1,
+          item: createdItem,
+          product: dataFromModal.product,
+        };
+
+        arrInvs.push(customInvEl);
+        this.customInvArray$.next([...arrInvs]);
+
+      });
+
+    });
+
+  }
+
+          // add item to list
         // const arr = this.items.getValue();
         // arr.push(createdItem);
         // this.items.next([...arr]);
@@ -151,12 +175,6 @@ export class InvoiceItemsComponent implements OnInit {
         // this.invoicesService
         // .updateById(this.invoice.id, this.invoice)
         // .subscribe(data => console.log('data =>', data));
-
-      });
-
-    });
-
-  }
 
   public onEdit(item: IInvoiceItem) {
 
