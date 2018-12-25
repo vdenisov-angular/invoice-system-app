@@ -33,8 +33,8 @@
 
   [loadingIndicator]="loadingIndicator"
  
-  [columns]="tableColumns"
-  [rows]="items | async"
+  [columns]="customTableColumns"
+  [rows]="customInvArray$ | async"
   
   [columnMode]="'force'"
 
@@ -42,6 +42,45 @@
   [rowHeight]="70"
   [footerHeight]="50"
 ></ngx-datatable>
+
+<ng-template #customTotalPriceTmpl let-row="row" let-value="value">
+  <span>
+    {{ (value.item.quantity * value.product.price) | currency }}
+  </span>
+</ng-template>
+
+<ng-template #customItemPriceTmpl let-row="row" let-value="value">
+  <span>
+    {{ value | currency }}
+  </span>
+</ng-template>
+
+<ng-template #customActionTmpl let-row="row" let-value="value">
+  <div class="d-flex justify-content-around">
+
+    <button class="btn btn-outline-info btn-rounded waves-effect px-3"
+    (click)="printClick('EDIT', row)">
+      <i class="fa fa-pencil-alt"></i>
+    </button>
+
+    <button class="btn btn-outline-info btn-rounded waves-effect px-3"
+    (click)="printClick('DELETE', row)">
+      <i class="fa fa-trash-alt"></i>
+    </button>
+
+  </div>
+</ng-template>
+
+<ng-template #multipleTmpl>
+  <span>x</span>
+</ng-template>
+
+<ng-template #equalityTmpl>
+  <span>=</span>
+</ng-template>
+
+
+
 
 <div class="info">
   Total: 
@@ -53,6 +92,34 @@
   </ng-template>
 </div>
 
+
+<div style="height: 20px; margin: 20px; background-color: red;"></div>
+
+<ngx-datatable
+  class="material"
+
+  [loadingIndicator]="loadingIndicator"
+ 
+  [columns]="tableColumns"
+  [rows]="items | async"
+  
+  [columnMode]="'force'"
+
+  [headerHeight]="50"
+  [rowHeight]="70"
+  [footerHeight]="50"
+></ngx-datatable>
+
+<!-- <div class="info">
+  Total: 
+  <span *ngIf="invoice; else loadingTotal">
+    {{ invoice.total | currency }}
+  </span>
+  <ng-template #loadingTotal>
+    loading...
+  </ng-template>
+</div> -->
+
 <!-- TEMPLATES -->
 
 <ng-template #nameTmpl let-row="row" let-value="value">
@@ -60,8 +127,13 @@
 </ng-template>
 
 <ng-template #priceTmpl let-row="row" let-value="value">
-  <span *ngIf="value">{{ value }}</span>
-  <span *ngIf="!value">loading...</span>
+  <span *ngIf="value !== undefined; else loadingPrice">
+    {{ value }}
+  </span>
+
+  <ng-template #loadingPrice>
+    loading...
+  </ng-template>
 </ng-template>
 
 <ng-template #actionTmpl let-row="row" let-value="value">

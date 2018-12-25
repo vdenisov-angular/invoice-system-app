@@ -9,6 +9,13 @@ import { ConfirmDeleteComponent } from 'src/app/shared/modals';
 import { ItemsCreateUpdateComponent } from './../../components';
 
 
+interface ICustomInvItem {
+  data: {
+    item: IInvoiceItem,
+    product: IProduct,
+  }
+}
+
 @Component({
   selector: 'app-invoice-items',
   templateUrl: './invoice-items.component.html',
@@ -16,9 +23,16 @@ import { ItemsCreateUpdateComponent } from './../../components';
 })
 export class InvoiceItemsComponent implements OnInit {
 
+
   @ViewChild('nameTmpl') nameTmpl: TemplateRef<any>;
   @ViewChild('priceTmpl') priceTmpl: TemplateRef<any>;
   @ViewChild('actionTmpl') actionTmpl: TemplateRef<any>;
+
+  @ViewChild('customTotalPriceTmpl') customTotalPriceTmpl: TemplateRef<any>;
+  @ViewChild('customItemPriceTmpl') customItemPriceTmpl: TemplateRef<any>;
+  @ViewChild('customActionTmpl') customActionTmpl: TemplateRef<any>;
+  @ViewChild('multipleTmpl') multipleTmpl: TemplateRef<any>;
+  @ViewChild('equalityTmpl') equalityTmpl: TemplateRef<any>;
 
   public invoiceId: number;
   public invoice: IInvoice;
@@ -26,9 +40,13 @@ export class InvoiceItemsComponent implements OnInit {
   public items = new BehaviorSubject<IInvoiceItem[]>([]);
   public tableColumns = [];
 
-  public loadingIndicator;
+  public customInvArray: ICustomInvItem[] = [];
+  public customInvArray$ = new BehaviorSubject<ICustomInvItem[]>([]);
+  public customTableColumns = [];
 
+  public loadingIndicator;
   public totalPrice = 0;
+
 
   constructor(
     private route: ActivatedRoute,
@@ -39,38 +57,100 @@ export class InvoiceItemsComponent implements OnInit {
     private productsService: ProductsService,
   ) { }
 
+
   ngOnInit() {
     this.invoiceId = +this.route.snapshot.params['id'];
-
-    this.reloadInvoiceItems();
 
     this.tableColumns = [
       { name: 'Product',           prop: 'product_id', cellTemplate: this.nameTmpl },
       { name: 'Quantity (pieces)', prop: 'quantity' },
-      { name: 'Price (total)',     prop: 'total',      cellTemplate: this.priceTmpl },
+      { name: 'Price (total)',     prop: 'total',       cellTemplate: this.priceTmpl },
       { cellTemplate: this.actionTmpl }
     ];
+
+    this.customTableColumns = [
+      { // product.name
+        name: 'Product',
+        prop: 'data.product.name',
+      },
+      { // item.quantity
+        name: 'Quantity',
+        prop: 'data.item.quantity',
+      },
+      { // x
+        cellTemplate: this.multipleTmpl,
+      },
+      { // product.price
+        name: 'Price (per item)',
+        prop: 'data.product.price',
+        cellTemplate: this.customItemPriceTmpl,
+      },
+      { // =
+        cellTemplate: this.equalityTmpl,
+      },
+      { // item.total
+        name: 'Price (total)',
+        prop: 'data',
+        cellTemplate: this.customTotalPriceTmpl,
+      },
+      { // buttons edit/delete
+        cellTemplate: this.customActionTmpl,
+      },
+    ];
+
+    this.loadItems(this.invoiceId);
   }
 
-  public async reloadInvoiceItems() {
+
+  public async loadItems(invId: number) {
     this.loadingIndicator = true;
 
     // update invoice for getting total
-    this.invoice = await this.invoicesService.getById(this.invoiceId).toPromise();
+    this.invoice = await this.invoicesService
+    .getById(this.invoiceId).toPromise();
     // update list of items
-    const itemsList = await this.invoiceItemsService.getAll(this.invoiceId).toPromise();
-
+    const itemsList: IInvoiceItem[] = await this.invoiceItemsService
+    .getAll(this.invoiceId).toPromise();
+    // push items data to table
     this.items.next(itemsList);
-    itemsList.map(async (item: IInvoiceItem) => {
-      const product = await this.productsService.getById(item.product_id).toPromise();
-      item.total = Number( (item.quantity * product.price).toFixed(2) );
 
-      console.log('item =>', item);
-    });
-    this.items.next(itemsList);
+    for (let i = 0; i < itemsList.length; i += 1) {
+      const itemEl: IInvoiceItem = itemsList[i];
+
+      const productEl: IProduct = await this.productsService
+      .getById(itemEl.product_id).toPromise();
+
+      const customInvEl: ICustomInvItem = {
+        data: {
+          item: itemEl,
+          product: productEl,
+        }
+      };
+
+      this.customInvArray.push(customInvEl);
+    }
+
+    this.customInvArray$.next(this.customInvArray);
+
+    console.log('this.customInvArray$ =>', this.customInvArray$.getValue());
+
+    // await itemsList.forEach(async (itemEl: IInvoiceItem) => {
+    //   const productEl: IProduct = await this.productsService
+    //   .getById(itemEl.product_id).toPromise();
+
+    //   const customItem: ICustomInvItem = {
+    //     item: itemEl,
+    //     product: productEl
+    //   };
+
+    //   this.customInvArray.push(customItem);
+    // });
+
+    // console.log('customInvArray =>', customInvArray);
 
     this.loadingIndicator = false;
   }
+
 
   public onCreate() {
 
@@ -99,7 +179,7 @@ export class InvoiceItemsComponent implements OnInit {
         arr.push(createdItem);
         this.items.next([...arr]);
 
-        this.reloadInvoiceItems();
+        // this.reloadInvoiceItems();
 
 
         // update total for invoice
@@ -194,6 +274,10 @@ export class InvoiceItemsComponent implements OnInit {
             });
         }
       });
+  }
+
+  printClick(action: string, data: any) {
+    console.log(`printClick => ${action}\n`, data);
   }
 
 }

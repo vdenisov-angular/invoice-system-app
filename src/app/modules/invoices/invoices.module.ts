@@ -19,6 +19,7 @@ import {
   CustomerNamePipe,
   ProductNamePipe
 } from './shared/pipes';
+import { ProductPricePipe } from './shared/pipes/product-price.pipe';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import {
     SelectInvoiceItemsComponent,
 
     CustomerNamePipe,
-    ProductNamePipe
+    ProductNamePipe,
+    ProductPricePipe
   ],
   entryComponents: [
     InvoicesCreateUpdateComponent,
