@@ -4,9 +4,21 @@
   font-weight: bold;
 }
 
+.navbar-nav {
+  display: flex;
+  flex-direction: row;
+}
+
 .navbar-nav .nav-item .btn {
   color: white;
   font-size: 20px;
+}
+
+.navbar-toggler {
+  box-shadow: 0px 0px 2px 2px;
+  color: white;
+  border-color: white;
+  background-color: white;
 }
 
 .active {
