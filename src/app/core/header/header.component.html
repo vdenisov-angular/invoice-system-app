@@ -5,22 +5,22 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="nav navbar-nav">
 
-      <li class="nav-item">
-        <button class="btn btn-link" (click)="openCustomers()">
+      <li class="nav-item" [class.active]="currentUrl === '/customers'">
+        <div class="btn" (click)="openCustomers()">
           Customers
-        </button>
+        </div>
       </li>
 
-      <li class="nav-item">
-        <button class="btn btn-link" (click)="openProducts()">
+      <li class="nav-item" [class.active]="currentUrl === '/products'">
+        <div class="btn" (click)="openProducts()">
           Products
-        </button>
+        </div>
       </li>
 
-      <li class="nav-item">
-        <button class="btn btn-link" (click)="openInvoices()">
+      <li class="nav-item" [class.active]="currentUrl === '/invoices'">
+        <div class="btn" (click)="openInvoices()">
           Invoices
-        </button>
+        </div>
       </li>
 
     </ul>

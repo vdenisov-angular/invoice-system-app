@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+
+import { filter } from 'rxjs/operators';
 
 
 @Component({
@@ -9,9 +11,22 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  public currentUrl: string;
 
-  ngOnInit() { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit() {
+    this.router.events
+      .pipe(
+        filter(event => event instanceof NavigationStart)
+      )
+      .subscribe((event: NavigationStart) => {
+        this.currentUrl = event.url;
+      });
+  }
 
   public openHome() {
     this.router.navigateByUrl('/');
