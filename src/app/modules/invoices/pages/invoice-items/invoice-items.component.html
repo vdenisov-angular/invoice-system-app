@@ -1,7 +1,5 @@
 <div class="d-flex flex-row align-self-center addition">
 
-  <!-- <button type="button" class="btn btn-outline-dark" (click)="goBack()">Back</button> -->
-
   <div class="info">
     Customer: 
     <span *ngIf="invoice; else loadingName">
@@ -18,6 +16,16 @@
       {{ invoice.discount }} %
     </span>
     <ng-template #loadingDiscount>
+      loading...
+    </ng-template>
+  </div>
+
+  <div class="info">
+    Total for invoice: 
+    <span *ngIf="invoice; else loadingTotal">
+      {{ invoice.total | currency }}
+    </span>
+    <ng-template #loadingTotal>
       loading...
     </ng-template>
   </div>
@@ -58,12 +66,12 @@
 <ng-template #customActionTmpl let-row="row" let-value="value">
   <div class="d-flex justify-content-around">
 
-    <button class="btn btn-outline-info btn-rounded waves-effect px-3"
+    <button class="btn btn-outline-primary waves-effect border-0 px-2"
     (click)="onEdit(row)">
       <i class="fa fa-pencil-alt"></i>
     </button>
 
-    <button class="btn btn-outline-info btn-rounded waves-effect px-3"
+    <button class="btn btn-outline-primary waves-effect border-0 px-2"
     (click)="onDelete(row)">
       <i class="fa fa-trash-alt"></i>
     </button>
@@ -78,13 +86,3 @@
 <ng-template #equalityTmpl>
   <span>=</span>
 </ng-template>
-
-<div class="info">
-  Total for invoice: 
-  <span *ngIf="invoice; else loadingTotal">
-    {{ invoice.total | currency }}
-  </span>
-  <ng-template #loadingTotal>
-    loading...
-  </ng-template>
-</div>
