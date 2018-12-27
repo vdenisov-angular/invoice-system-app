@@ -3,10 +3,15 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+
     "start": "ng serve",
     "start:dev": "ng serve --configuration=dev",
     "start:prod": "ng serve --configuration=production",
+
     "build": "ng build",
+    "build:dev": "ng build --configuration=dev",
+    "build:prod": "ng build --configuration=production",
+
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
