@@ -1,3 +1,14 @@
+.logo {
+  font-size: 30px;
+  color: white!important;
+  font-weight: bold;
+}
+
+.navbar-nav .nav-item .btn {
+  color: white;
+  font-size: 20px;
+}
+
 .active {
-  border-bottom: 1px solid blue;
+  border-bottom: 2px solid white;
 }
