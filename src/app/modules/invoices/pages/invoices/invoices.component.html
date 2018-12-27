@@ -35,11 +35,13 @@
 <ng-template #actionTmpl let-row="row" let-value="value">
   <div class="d-flex justify-content-around">
 
-    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="showItemsForInvoice(row)">
+    <button class="btn btn-outline-primary waves-effect border-0 px-2"
+    (click)="showItemsForInvoice(row)">
       <i class="fa fa-shopping-cart"></i>
     </button>
 
-    <button class="btn btn-outline-info btn-rounded waves-effect px-3" (click)="onDelete(row)">
+    <button class="btn btn-outline-primary waves-effect border-0 px-2"
+    (click)="onDelete(row)">
       <i class="fa fa-trash-alt"></i>
     </button>
 
