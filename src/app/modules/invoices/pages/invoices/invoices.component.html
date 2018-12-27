@@ -1,7 +1,7 @@
-<div class="d-flex flex-row area-header">
-  <h2>Invoices list</h2>
-  <button type="button" class="btn btn-primary btn-lg area-button-add" (click)="onCreate()">
-    add
+<div style="text-align: center;">
+  <button type="button" class="btn btn-outline-primary"
+  (click)="onCreate()">
+    add invoice
   </button>
 </div>
 
@@ -37,12 +37,14 @@
 
     <button class="btn btn-outline-primary waves-effect border-0 px-2"
     (click)="showItemsForInvoice(row)">
-      <i class="fa fa-shopping-cart"></i>
+      <!-- <i class="fa fa-shopping-cart"></i> -->
+      details
     </button>
 
     <button class="btn btn-outline-primary waves-effect border-0 px-2"
     (click)="onDelete(row)">
-      <i class="fa fa-trash-alt"></i>
+      <!-- <i class="fa fa-trash-alt"></i> -->
+      delete
     </button>
 
 <!--  -->  </div>

@@ -29,10 +29,13 @@
       loading...
     </ng-template>
   </div>
-  
-  <button type="button" class="btn btn-primary adding-button" (click)="onCreate()">
-    add new items to invoice
-  </button>
+
+  <div style="text-align: center;">
+    <button type="button" class="btn btn-outline-primary"
+    (click)="onCreate()">
+      buy product
+    </button>
+  </div>
 
 </div>
 
@@ -68,12 +71,14 @@
 
     <button class="btn btn-outline-primary waves-effect border-0 px-2"
     (click)="onEdit(row)">
-      <i class="fa fa-pencil-alt"></i>
+      <!-- <i class="fa fa-pencil-alt"></i> -->
+      edit
     </button>
 
     <button class="btn btn-outline-primary waves-effect border-0 px-2"
     (click)="onDelete(row)">
-      <i class="fa fa-trash-alt"></i>
+      <!-- <i class="fa fa-trash-alt"></i> -->
+      delete
     </button>
 
   </div>

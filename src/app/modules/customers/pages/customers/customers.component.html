@@ -1,7 +1,7 @@
-<div class="d-flex flex-row area-header">
-  <h2>Customers list</h2>
-  <button type="button" class="btn btn-primary btn-lg area-button-add" (click)="onCreate()">
-    add
+<div style="text-align: center;">
+  <button type="button" class="btn btn-outline-primary"
+  (click)="onCreate()">
+    add customer
   </button>
 </div>
 
@@ -28,12 +28,14 @@
 
     <button class="btn btn-outline-primary waves-effect border-0 px-2"
     (click)="onEdit(row)">
-      <i class="fa fa-pencil-alt"></i>
+      <!-- <i class="fa fa-pencil-alt"></i> -->
+      edit
     </button>
 
     <button class="btn btn-outline-primary waves-effect border-0 px-2"
     (click)="onDelete(row)">
-      <i class="fa fa-trash-alt"></i>
+      <!-- <i class="fa fa-trash-alt"></i> -->
+      delete
     </button>
 
   </div>
