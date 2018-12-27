@@ -21,7 +21,8 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">Choose customer</span>
       </div>
-      <input [ngbTypeahead]="search" #instance="ngbTypeahead"
+      <input placeholder="Select customer"
+        [ngbTypeahead]="search" #instance="ngbTypeahead"
         (focus)="focus$.next($event.target.value)"
         (click)="click$.next($event.target.value)"
         (selectItem)="onSelectItem($event)"
@@ -39,7 +40,8 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">Discount %</span>
       </div>
-      <input type="text" class="form-control" formControlName="discount"
+      <input type="number" min="0" max="50" placeholder="Enter discount for customer"
+        class="form-control" formControlName="discount"
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 

@@ -21,7 +21,8 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">Product</span>
       </div>
-      <input [ngbTypeahead]="search" #instance="ngbTypeahead"
+      <input placeholder="Select product"
+        [ngbTypeahead]="search" #instance="ngbTypeahead"
         (focus)="focus$.next($event.target.value)"
         (click)="click$.next($event.target.value)"
         (selectItem)="onSelectItem($event)"
@@ -40,7 +41,8 @@
       <div class="input-group-prepend">
         <span class="input-group-text" id="inputGroup-sizing-default">Quantity</span>
       </div>
-      <input type="text" class="form-control" formControlName="quantity"
+      <input type="number" min="0" max="20" placeholder="Enter quantity of product"
+        class="form-control" formControlName="quantity"
         aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
     </div>
 
