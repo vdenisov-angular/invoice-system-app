@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { IInvoice, Invoice } from 'src/app/shared/types';
 import { InvoicesService } from 'src/app/core/services';
 import { ConfirmDeleteComponent } from 'src/app/shared/modals';
-import { InvoicesCreateUpdateComponent, SelectInvoiceItemsComponent } from './../../components';
+import { InvoicesCreateUpdateComponent } from './../../components';
 
 
 @Component({
@@ -88,11 +88,6 @@ export class InvoicesComponent implements OnInit {
             });
         }
       });
-  }
-
-  public onChange(invoice: IInvoice) {
-    const modalRef = this.modalService
-      .open(SelectInvoiceItemsComponent, { centered: true });
   }
 
   public onDelete(invoice: IInvoice) {

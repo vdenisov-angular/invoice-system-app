@@ -12,7 +12,6 @@ import {
 import {
   InvoicesCreateUpdateComponent,
   ItemsCreateUpdateComponent,
-  SelectInvoiceItemsComponent,
 } from './components';
 
 import {
@@ -34,7 +33,6 @@ import { ProductPricePipe } from './shared/pipes/product-price.pipe';
 
     InvoicesCreateUpdateComponent,
     ItemsCreateUpdateComponent,
-    SelectInvoiceItemsComponent,
 
     CustomerNamePipe,
     ProductNamePipe,
@@ -43,7 +41,6 @@ import { ProductPricePipe } from './shared/pipes/product-price.pipe';
   entryComponents: [
     InvoicesCreateUpdateComponent,
     ItemsCreateUpdateComponent,
-    SelectInvoiceItemsComponent,
   ],
 })
 export class InvoicesModule { }
