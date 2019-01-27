@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
-
-import { filter } from 'rxjs/operators';
 
 
 @Component({
@@ -11,37 +8,14 @@ import { filter } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
 
-  public currentUrl: string;
+  private links = [
+    {   name: 'Cusomers',   path: '/customers'  },
+    {   name: 'Products',   path: '/products'   },
+    {   name: 'Invoices',   path: '/invoices'   },
+  ];
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute
-  ) { }
+  constructor() { }
 
-  ngOnInit() {
-    this.router.events
-      .pipe(
-        filter(event => event instanceof NavigationStart)
-      )
-      .subscribe((event: NavigationStart) => {
-        this.currentUrl = event.url;
-      });
-  }
-
-  public openHome() {
-    this.router.navigateByUrl('/');
-  }
-
-  public openCustomers() {
-    this.router.navigateByUrl('/customers');
-  }
-
-  public openProducts() {
-    this.router.navigateByUrl('/products');
-  }
-
-  public openInvoices() {
-    this.router.navigateByUrl('/invoices');
-  }
+  ngOnInit() {  }
 
 }
