@@ -1,32 +1,20 @@
 import { Injectable } from '@angular/core';
+
 import { ApiService } from './api.service';
+import { AbstractResourceService } from './abstract-resource.service';
+
+import { ICustomer } from 'src/app/shared/types';
 
 
 @Injectable({
   providedIn: 'root'
 })
-export class CustomersService {
+export class CustomersService extends AbstractResourceService<ICustomer> {
 
-  constructor(private apiService: ApiService) {}
-
-  public create(data) {
-    return this.apiService.post(`customers`, data);
-  }
-
-  public getAll() {
-    return this.apiService.get(`customers`);
-  }
-
-  public getById(id) {
-    return this.apiService.get(`customers/${id}`);
-  }
-
-  public updateById(id, data) {
-    return this.apiService.put(`customers/${id}`, data);
-  }
-
-  public deleteById(id) {
-    return this.apiService.delete(`customers/${id}`);
+  constructor(
+    protected apiService: ApiService
+  ) {
+    super('customers');
   }
 
 }
