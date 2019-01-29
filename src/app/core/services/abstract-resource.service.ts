@@ -18,12 +18,12 @@ export abstract class AbstractResourceService<T> {
     return this.apiService.post(this.endpoint, object);
   }
 
-  public getById(id: number): Observable<T> {
-    return this.apiService.get(`${this.endpoint}/${id}`);
-  }
-
   public getAll(): Observable<T[]> {
     return this.apiService.get(this.endpoint);
+  }
+
+  public getById(id: number): Observable<T> {
+    return this.apiService.get(`${this.endpoint}/${id}`);
   }
 
   public updateById(id: number, object: T): Observable<T> {
