@@ -27,7 +27,7 @@ export abstract class AbstractResourceService<T> {
   }
 
   public updateById(id: number, object: T): Observable<T> {
-    return this.apiService.put(this.endpoint, object);
+    return this.apiService.put(`${this.endpoint}/${id}`, object);
   }
 
   public deleteById(id: number): Observable<T> {
